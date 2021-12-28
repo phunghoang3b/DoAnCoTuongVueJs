@@ -6,7 +6,7 @@
         <!-- Classy Menu -->
         <nav class="classy-navbar" id="essenceNav">
             <!-- Logo -->
-            <a class="nav-brand" href="#">Hexa-<em style="font-style: normal;color: orange;">Chess</em></a>
+            <a class="nav-brand" href="/home">Hexa-<em style="font-style: normal;color: orange;">Chess</em></a>
             <!-- Navbar Toggler -->
             <div class="classy-navbar-toggler">
                 <span class="navbarToggler"><span></span><span></span><span></span></span>
