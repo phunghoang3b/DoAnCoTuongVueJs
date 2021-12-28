@@ -66,6 +66,7 @@ export default {
 }
 </script>
 
+
 <style>
   .main{
     margin-bottom: 30px;
