@@ -188,7 +188,7 @@
 <!-- ##### Brands Area Start ##### -->
 <div class="brands-area d-flex align-items-center justify-content-between" style="margin-top:-45px">
     <div class="hinh-anh">
-        <img src="assets/img/bg-img/logokyvuong.png" style="width: 30%;position:relative;margin-left:156%"/>
+        <img src="assets/img/bg-img/logokyvuong.png" style="width: 50%;position:relative;margin-left:308%"/>
     </div>
 </div>
 <!-- ##### Brands Area End ##### -->
