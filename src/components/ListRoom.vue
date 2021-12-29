@@ -1,6 +1,6 @@
 <template>
   <div class="container-listroom" style="background-image:url(assets/img/bg-img/backgoung.jpg);background-size:cover;">
-      <img src="assets/img/bg-img/DANHSACHPHONG.png" alt="" style="    ">
+      <img src="assets/img/bg-img/DANHSACHPHONG.png" alt="">
       <div class="search-container">
         <input type="text" name="search" placeholder="Tìm kiếm..." class="search-input">
         <a href="#" class="search-btn" style="color:black">
