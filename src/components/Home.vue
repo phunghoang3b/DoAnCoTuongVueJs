@@ -23,7 +23,7 @@
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(assets/img/bg-img/buttonchess.jpg);border: 5px solid orange;">
                     <div class="catagory-content">
-                        <a href="#">ĐĂNG NHẬP</a>
+                        <a href="">ĐĂNG NHẬP</a>
                     </div>
                 </div>
             </div>
@@ -188,7 +188,7 @@
 <!-- ##### Brands Area Start ##### -->
 <div class="brands-area d-flex align-items-center justify-content-between" style="margin-top:-45px">
     <div class="hinh-anh">
-        <img src="assets/img/bg-img/logokyvuong.png" style="width: 30%;position:relative;margin-left:156%"/>
+        <img src="assets/img/bg-img/logokyvuong.png" style="width: 50%;position:relative;margin-left:308%"/>
     </div>
 </div>
 <!-- ##### Brands Area End ##### -->

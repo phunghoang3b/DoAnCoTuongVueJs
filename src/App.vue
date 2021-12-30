@@ -23,6 +23,7 @@
                         <li><a class="change" href="/home">TRANG CHỦ</a></li>
                         <li><a class="change" href="/board">GIỚI THIỆU</a></li>
                         <li><a class="change" href="/room">CÁCH CHƠI</a></li>
+                        <li><a class="change" href="/chat">CHAT GAME</a></li>
                     </ul>
                 </div>
                 <!-- Nav End -->
