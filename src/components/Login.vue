@@ -1,0 +1,159 @@
+<template>
+  <div class="vue-tempalte">
+    <form class="body-login">
+      <div class="content-login">
+        <h3>Đăng Nhập</h3><br>
+        <div class="form-group">
+          <label>Tên đăng nhập:</label>
+          <input
+            type="username"
+            class="form-control form-control-lg"
+            placeholder="Tên đăng nhập ..."
+          />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <input
+            type="password"
+            class="form-control form-control-lg"
+            placeholder="Mật khẩu ..."
+          />
+        </div><br>
+        <button type="submit" class="btn btn-lg btn-block btn1">
+          Đăng nhập
+        </button>
+        <label class="lbl-reg">Bạn chưa có tài khoản ? &nbsp;<a href="/register">Đăng Ký</a></label>
+        <div class="social-icons">
+          <ul>
+            <li>
+              <a href="#"><i class="fa fa-google"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Login'
+};
+</script>
+
+<style scoped>
+.vue-tempalte{
+  display: flex;
+  height: 663px;
+  justify-content: center;
+  background-image: url(https://i.imgur.com/91Oj0DG.jpg);
+  background-size: cover;
+}
+.body-login{
+    width: 35%;
+    position: relative;
+    background-color: rgba(0,0,0,0.5);
+    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+    height: 550px;
+    margin: auto;
+    border-radius: 10px;
+}
+.content-login{
+    position: relative;
+    display: inline-block;
+    top: 8%;
+    width: 80%;
+}
+.content-login h3{
+  color: #fff;
+  font-size: 40px;
+}
+.social-icons {
+  text-align: center;
+  font-family: "Open Sans";
+  font-weight: 300;
+  font-size: 1.5em;
+  color: #222222;
+
+}
+.form-group label{
+  color: #fff;
+  font-size: 20px;
+}
+.btn1{
+  width: 55%;
+  position: relative;
+  margin: auto;
+  margin-bottom: 17px;
+  background-image: linear-gradient(to right, #ffd080, #e28743);
+  font-weight: bold;
+}
+.content-login .lbl-reg{
+  color: #ffd080;
+  font-size: 15px;
+}
+.content-login .lbl-reg a{
+  font-size: 15px;
+}
+.social-icons ul {
+  list-style: none;
+  margin: 7px;
+  padding: 0;
+}
+.social-icons ul li {
+  display: inline-block;
+  zoom: 1;
+  width: 65px;
+  vertical-align: middle;
+  border: 1px solid #e3e8f9;
+  font-size: 15px;
+  height: 40px;
+  line-height: 40px;
+  margin-right: 5px;
+  background: #f4f6ff;
+  border-radius: 9px;
+}
+.social-icons ul li a {
+  display: block;
+  font-size: 1.4em;
+  margin: 0 5px;
+  text-decoration: none;
+}
+.social-icons ul li a i {
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  color: #111;
+}
+.social-icons ul li a:focus i,
+.social-icons ul li a:active i {
+  transition: none;
+  color: #f1c685;
+}
+.text-right {
+  text-align: right!important;
+  color: white;
+}
+.nav-link {
+  display: block;
+  padding: .5rem 1rem;
+  color: black;
+}
+.btn-outline-primary {
+  color: #212529;
+  border-color: #ffc107;
+}
+.btn-outline-primary:hover {
+  color: #212529;
+  border-color: #ffc107;
+  background:orange;
+}
+</style>

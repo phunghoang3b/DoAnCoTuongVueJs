@@ -21,7 +21,7 @@ export default {
     .container-chat h2{
         position: absolute;
         top: 13%;
-        left: 22%;
+        left: 20%;
         text-transform: uppercase;
         color: #111;
         font-family: cursive;

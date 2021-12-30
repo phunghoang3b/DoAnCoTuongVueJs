@@ -21,9 +21,10 @@
                 <div class="classynav">
                     <ul>
                         <li><a class="change" href="/home">TRANG CHỦ</a></li>
-                        <li><a class="change" href="/board">GIỚI THIỆU</a></li>
-                        <li><a class="change" href="/room">CÁCH CHƠI</a></li>
+                        <li><a class="change" href="/intro">GIỚI THIỆU</a></li>
+                        <li><a class="change" href="#">CÁCH CHƠI</a></li>
                         <li><a class="change" href="/chat">CHAT GAME</a></li>
+                        <li><a class="change" href="/profile">HỒ SƠ</a></li>
                     </ul>
                 </div>
                 <!-- Nav End -->
