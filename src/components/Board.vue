@@ -173,10 +173,6 @@ export default {
     margin-bottom: 30px;
     margin-top: 30px;
   }
-<<<<<<< HEAD
-</style>
-
-=======
   .hinh-anh{
     position: relative;
     width: 15%;
@@ -290,4 +286,3 @@ export default {
   font-weight: bold;
 }
 </style>
->>>>>>> 4f48a2b180e8780fa7ca991aaf1aef2557e49179

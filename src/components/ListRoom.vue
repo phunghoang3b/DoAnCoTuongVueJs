@@ -1,13 +1,15 @@
 <template>
   <div class="container-listroom" style="background-image:url(assets/img/bg-img/backgoung.jpg);background-size:cover;">
       <img src="assets/img/bg-img/DANHSACHPHONG.png" alt="">
-      <div class="search-container">
-        <input type="text" name="search" placeholder="Tìm kiếm..." class="search-input">
-        <a href="#" class="search-btn" style="color:black">
-          O   
-        </a>
+      <div class="function-btn">
+        <div class="search-container">
+          <input type="text" name="search" placeholder="Tìm kiếm..." class="search-input">
+          <a href="#" class="search-btn" style="color:black">
+            O   
+          </a>
+        </div>
+        <button class="btn-create">Tạo bàn mới</button>
       </div>
-      <button class="btn-create">Tạo bàn mới</button>
     <div class="list-Room">
       <!-- nơi chứa danh sách phòng -->
     </div>
@@ -22,12 +24,14 @@ export default {
 
 <style>
   .list-Room{
+    position: fixed;
     width: 1300px;
     border-radius: 25px;
     background-color: rgba(0,0,0,0.7);
     box-shadow: 0 0 17px #333;
     margin: 9% auto;
     height: 470px;
+    margin-left: 16.2%;
   }
   .container-listroom{
     height: 663px;
