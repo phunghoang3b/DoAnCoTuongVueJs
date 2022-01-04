@@ -7,7 +7,7 @@
           O   
         </a>
       </div>
-      <button class="btn-create">Tạo bàn mới</button>
+      <button class="btn-create" @click="join">Tạo bàn mới</button>
     <div class="list-Room">
       <!-- nơi chứa danh sách phòng -->
     </div>
@@ -15,8 +15,20 @@
 </template>
 
 <script>
+import { io } from "socket.io-client";
 export default {
-  name: 'ListRoom'
+  name: 'ListRoom', 
+  data(){
+    return{
+      joined: false
+    }
+  },
+  methods: {
+    join(){
+      this.joined=true;
+      this.socketInstance = io("http://localhost:3000/");
+    }
+  }
 }
 </script>
 
