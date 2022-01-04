@@ -72,7 +72,6 @@
 import mang from '@/Test/test.js'
 import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
-var x,y;
 export default {
   name: 'Board',
   data() {
@@ -94,7 +93,9 @@ export default {
           vitri: null,
           class: null,
           left: null,
-          top: null
+          top: null,
+          x: null,
+          y: null
         }
       ]
     }
@@ -113,7 +114,7 @@ export default {
     },
     clickCo: function(src){
       const loaico = src.class.split(" ");
-      
+      var x,y;
       for (let i = 0; i <= 9; i++) {
         for (let j = 0; j <= 8; j++) {
           if (MaTran[i][j].id == loaico[0]) {
@@ -134,10 +135,10 @@ export default {
           vitri: 'left: ' + MaTran[NuocDi[i].top][NuocDi[i].left].left + 'px; top: ' + MaTran[NuocDi[i].top][NuocDi[i].left].top + 'px; margin-left:8px; margin-top: 6px',
           class: 'dropimage' + i + '',
           left: MaTran[NuocDi[i].top][NuocDi[i].left].left,
-          top: MaTran[NuocDi[i].top][NuocDi[i].left].top
+          top: MaTran[NuocDi[i].top][NuocDi[i].left].top,
+          x: NuocDi[i].left,
+          y: NuocDi[i].top
         })
-        x = NuocDi[i].left;
-        y = NuocDi[i].top;
       }
     },
     clickDiChuyen: function(src){
@@ -145,21 +146,42 @@ export default {
       const ConCoHienTai = src.quanco.i;
       const left = src.left;
       const top = src.top;
+      const x = src.x;
+      const y = src.y;
       this.hinh[ConCoHienTai].vitri = 'left: ' + left + 'px; top: ' + top + 'px';
+      //alert(this.hinh[ConCoHienTai].id);
       //Xóa dấu dot cũ
       this.dot.splice(0);
-
       //Xóa con cờ ở điểm cũ
-        
-        for (let i = 0; i <= 9; i++) {
-            for (let j = 0; j <= 8; j++) {
-                if (MaTran[i][j].id == loaico[0]) {
-                    MaTran[i][j].id = "";
-                }
-            }
+      for (let i = 0; i <= 9; i++) {
+        for (let j = 0; j <= 8; j++) {
+          if (MaTran[i][j].id == loaico[0]) {
+            MaTran[i][j].id = "";
+          }
         }
-        MaTran[y][x].id = ConCoHienTai;
-      
+      }
+      //Ăn cờ
+      if (MaTran[y][x].id != "") {
+        for (let i = 0; i < mang.length; i++) {
+          if (MaTran[y][x].id == mang[i].id) {
+            if (loaico[1] != mang[i].loai) {
+              if (mang[i].id == "tuong") {
+                alert("Quân đen thua");
+              } else {
+                if (mang[i].id == "tuong_do") {
+                  alert("Quân đỏ thua ");
+                }
+                else {
+                  this.hinh[i].hinh = null;
+                  MaTran[y][x].id = mang[ConCoHienTai].id;
+                }
+              }
+            }
+          }
+        }
+      } else {
+        MaTran[y][x].id = mang[ConCoHienTai].id;
+      }
     }
   }
 }
