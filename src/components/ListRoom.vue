@@ -1,16 +1,18 @@
 <template>
   <div class="container-listroom" style="background-image:url(assets/img/bg-img/backgoung.jpg);background-size:cover;">
       <img src="assets/img/bg-img/DANHSACHPHONG.png" alt="">
-      <div class="search-container">
-        <input type="text" name="search" placeholder="Tìm kiếm..." class="search-input">
-        <a href="#" class="search-btn" style="color:black">
-          O   
-        </a>
+      <div class="function-btn">
+        <div class="search-container">
+          <input type="text" name="search" placeholder="Tìm kiếm..." class="search-input">
+          <a href="#" class="search-btn" style="color:black">
+            O   
+          </a>
+        </div>
+        <button class="btn-create" @click="join">Tạo bàn mới</button>
+        <div class="list-Room">
+        <!-- nơi chứa danh sách phòng -->
+        </div>
       </div>
-      <button class="btn-create" @click="join">Tạo bàn mới</button>
-    <div class="list-Room">
-      <!-- nơi chứa danh sách phòng -->
-    </div>
   </div>
 </template>
 
@@ -20,13 +22,33 @@ export default {
   name: 'ListRoom', 
   data(){
     return{
-      joined: false
+      min: 1000,
+      max: 9999,
     }
   },
+
+  created(){ // Khởi tạo socket kết nối tới server
+    this.socketInstance = io("http://localhost:3000/");
+  },
+
   methods: {
-    join(){
-      this.joined=true;
-      this.socketInstance = io("http://localhost:3000/");
+    ClickCreateNewRoom(){
+      var vHostName = "Temp";
+      this.socketInstance.emit("socketClientCreateNewRoom", vHostName); // Gửi dữ liệu tên chủ phòng từ client đến server
+
+      this.socketInstance.on("socketServerSendChangePageToBoard", function (DataServerSend) {
+        if(DataServerSend.isCheckChange){
+          alert("Bạn tạo phòng thành công với tên: " + DataServerSend.NewRoomName);
+          this.$router.push('/board'); //Phần chuyển trang này chưa làm được
+
+          //Còn chưa xử lý xuất ra danh sách phòng từ CSDL
+        }
+      })
+    },
+
+    //Random
+    GenerateNumber: function () {
+      return Math.floor(Math.random()*(this.max-this.min+1)+this.min);
     }
   }
 }
@@ -34,12 +56,14 @@ export default {
 
 <style>
   .list-Room{
+    position: fixed;
     width: 1300px;
     border-radius: 25px;
     background-color: rgba(0,0,0,0.7);
     box-shadow: 0 0 17px #333;
     margin: 9% auto;
     height: 470px;
+    margin-left: 16.2%;
   }
   .container-listroom{
     height: 663px;
