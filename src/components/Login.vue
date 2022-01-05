@@ -6,7 +6,7 @@
         <div class="form-group">
           <label>Tên đăng nhập:</label>
           <input
-            type="username"
+            type="username" required
             class="form-control form-control-lg"
             placeholder="Tên đăng nhập ..."
             v-model="account.username"
@@ -15,7 +15,7 @@
         <div class="form-group">
           <label>Mật khẩu</label>
           <input
-            type="password"
+            type="password" required
             class="form-control form-control-lg"
             placeholder="Mật khẩu ..."
             v-model="account.password"
