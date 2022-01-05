@@ -60,24 +60,3 @@ const mang = [xe_den1, ma_den1, voi_den1, si_den1, tuong, si_den2, voi_den2, ma_
 ];
 
 export default mang;
-
-// (function TaoBanCo($) {
-
-//     alert('Xin chao');
-//     //HienQuanCo();
-//     //$(function(){
-//         for (let i = 0; i < mang.length; i++) {
-//             var p = mang[i].vitri;
-//             $('.test').append('<img src="' + mang[i].hinh + '" class="' + mang[i].id + ' ' + mang[i].loai + '"  alt="" style="position: absolute; left: ' + p.left + 'px; top: ' + p.top + 'px">');
-//         }
-//     //});
-//     //mang;
-    
-// }());
-// $(document).ready(function HienQuanCo(){
-//     for (let i = 0; i < mang.length; i++) {
-//         var p = mang[i].vitri;
-//         $(".test").append('<img src="' + mang[i].hinh + '" class="' + mang[i].id + ' ' + mang[i].loai + '"  alt="" style="position: absolute; left: ' + p.left + 'px; top: ' + p.top + 'px">');
-//     }
-// })
-
