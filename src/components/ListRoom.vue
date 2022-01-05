@@ -22,13 +22,33 @@ export default {
   name: 'ListRoom', 
   data(){
     return{
-      joined: false
+      min: 1000,
+      max: 9999,
     }
   },
+
+  created(){ // Khởi tạo socket kết nối tới server
+    this.socketInstance = io("http://localhost:3000/");
+  },
+
   methods: {
-    join(){
-      this.joined=true;
-      this.socketInstance = io("http://localhost:3000/");
+    ClickCreateNewRoom(){
+      var vHostName = "Temp";
+      this.socketInstance.emit("socketClientCreateNewRoom", vHostName); // Gửi dữ liệu tên chủ phòng từ client đến server
+
+      this.socketInstance.on("socketServerSendChangePageToBoard", function (DataServerSend) {
+        if(DataServerSend.isCheckChange){
+          alert("Bạn tạo phòng thành công với tên: " + DataServerSend.NewRoomName);
+          this.$router.push('/board'); //Phần chuyển trang này chưa làm được
+
+          //Còn chưa xử lý xuất ra danh sách phòng từ CSDL
+        }
+      })
+    },
+
+    //Random
+    GenerateNumber: function () {
+      return Math.floor(Math.random()*(this.max-this.min+1)+this.min);
     }
   }
 }
