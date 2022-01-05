@@ -6,17 +6,28 @@
         <div class="form-group">
           <label>Họ và Tên:</label>
           <input
-            type="username"
+            type="text"
             class="form-control form-control-lg"
-            placeholder="Họ và tên ..."
+            placeholder="Nhập họ và tên ..."
+            v-model="account.fullname"
           />
         </div>
         <div class="form-group">
           <label>Tên đăng nhập:</label>
           <input
-            type="username"
+            type="text"
             class="form-control form-control-lg"
-            placeholder="Tên đăng nhập ..."
+            placeholder="Nhập tên đăng nhập ..."
+            v-model="account.username"
+          />
+        </div>
+        <div class="form-group">
+          <label>Email:</label>
+          <input
+            type="email"
+            class="form-control form-control-lg"
+            placeholder="Nhập Email ..."
+            v-model="account.email"
           />
         </div>
         <div class="form-group">
@@ -24,10 +35,11 @@
           <input
             type="password"
             class="form-control form-control-lg"
-            placeholder="Mật khẩu ..."
+            placeholder="Nhập mật khẩu ..."
+            v-model="account.password"
           />
         </div><br>
-        <button type="submit" class="btn btn-lg btn-block btn1">
+        <button type="submit" @click="DangKy" class="btn btn-lg btn-block btn1">
           Đăng ký
         </button>
         <label class="lbl-reg">Bạn đã có tài khoản ? &nbsp;<a href="/login">Đăng Nhập</a></label>
@@ -37,8 +49,42 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'Register'
+  name: 'Register',
+  data() {
+    return {
+      account: {
+        fullname: '',
+        username: '',
+        password: '',
+        email: ''
+      },
+    };
+  },
+  methods: {
+    DangKy(e) {
+      e.preventDefault();
+      console.log("Ok");
+      axios
+        .post("http://localhost:81/hexachess/test.php", {
+          hoten: this.account.fullname,
+          taikhoan: this.account.username,
+          matkhau: this.account.password,
+          email: this.account.email
+        })
+        .then(function (response) {
+            if (response.data == 'Success') {
+                console.log(response.data);
+                window.location.href = "http://localhost:8080/login";
+                alert('Đăng ký thành công');
+            }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  }
 };
 </script>
 
@@ -55,14 +101,14 @@ export default {
     position: relative;
     background-color: rgba(0,0,0,0.5);
     box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    height: 570px;
+    height: 628px;
     margin: auto;
     border-radius: 10px;
 }
 .content-login{
     position: relative;
     display: inline-block;
-    top: 8%;
+    top: 3%;
     width: 80%;
 }
 .content-login h3{

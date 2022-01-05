@@ -16,7 +16,7 @@ import AddFriend from '../components/AddFriend.vue'
 const routes = [
     {path: '/board', component: Board},
     {path: '/room', component: ListRoom},
-    {path: '/home', component: Home},
+    {path: '/', component: Home},
     {path: '/chat', component: Chat},
     {path: '/profile', component: Profile},
     {path: '/intro', component: Intro},

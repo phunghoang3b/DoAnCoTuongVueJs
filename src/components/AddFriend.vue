@@ -5,7 +5,6 @@
         <ol class="carousel-indicators">
             <li data-target="#carouselId" data-slide-to="0" class="active"></li>
             <li data-target="#carouselId" data-slide-to="1"></li>
-            <li data-target="#carouselId" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
@@ -19,7 +18,7 @@
                         </div>
                     </div>
                     <div class="slider-div" id="image2">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
+                        <img src="/assets/img/bg-img/buttonchess.jpg">
                         <div class="text">
                             <h3>Tên người chơi khác</h3>
                             <p>Giới thiệu về bản thân</p>
@@ -27,7 +26,7 @@
                         </div>
                     </div>
                     <div class="slider-div" id="image2">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
+                        <img src="/assets/img/bg-img/buttonchess1.jpg">
                         <div class="text">
                             <h3>Tên người chơi khác</h3>
                             <p>Giới thiệu về bản thân</p>
@@ -35,7 +34,7 @@
                         </div>
                     </div>
                     <div class="slider-div" id="image2">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
+                        <img src="/assets/img/bg-img/buttonchess2.jpg">
                         <div class="text">
                             <h3>Tên người chơi khác</h3>
                             <p>Giới thiệu về bản thân</p>
@@ -47,59 +46,7 @@
             <div class="carousel-item">
                 <main class="grid">
                     <div class="slider-div" id="image1">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
-                        <div class="text">
-                            <h3>Tên người chơi khác</h3>
-                            <p>Giới thiệu về bản thân</p>
-                            <a href="#" class="add-btn">Gửi lời mời </a>
-                        </div>
-                    </div>
-                    <div class="slider-div" id="image2">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
-                        <div class="text">
-                            <h3>Tên người chơi khác</h3>
-                            <p>Giới thiệu về bản thân</p>
-                            <a href="#" class="add-btn">Gửi lời mời </a>
-                        </div>
-                    </div>
-                    <div class="slider-div" id="image2">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
-                        <div class="text">
-                            <h3>Tên người chơi khác</h3>
-                            <p>Giới thiệu về bản thân</p>
-                            <a href="#" class="add-btn">Gửi lời mời </a>
-                        </div>
-                    </div>
-                    <div class="slider-div" id="image2">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
-                        <div class="text">
-                            <h3>Tên người chơi khác</h3>
-                            <p>Giới thiệu về bản thân</p>
-                            <a href="#" class="add-btn">Gửi lời mời </a>
-                        </div>
-                    </div>
-                </main>
-            </div>
-            <div class="carousel-item">
-                <main class="grid">
-                    <div class="slider-div" id="image1">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
-                        <div class="text">
-                            <h3>Tên người chơi khác</h3>
-                            <p>Giới thiệu về bản thân</p>
-                            <a href="#" class="add-btn">Gửi lời mời </a>
-                        </div>
-                    </div>
-                    <div class="slider-div" id="image2">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
-                        <div class="text">
-                            <h3>Tên người chơi khác</h3>
-                            <p>Giới thiệu về bản thân</p>
-                            <a href="#" class="add-btn">Gửi lời mời </a>
-                        </div>
-                    </div>
-                    <div class="slider-div" id="image2">
-                        <img src="/assets/img/bg-img/backgoung.jpg">
+                        <img src="/assets/img/bg-img/imagehome.jpg">
                         <div class="text">
                             <h3>Tên người chơi khác</h3>
                             <p>Giới thiệu về bản thân</p>
@@ -108,6 +55,22 @@
                     </div>
                     <div class="slider-div" id="image2">
                         <img src="/assets/img/bg-img/test.png">
+                        <div class="text">
+                            <h3>Tên người chơi khác</h3>
+                            <p>Giới thiệu về bản thân</p>
+                            <a href="#" class="add-btn">Gửi lời mời </a>
+                        </div>
+                    </div>
+                    <div class="slider-div" id="image2">
+                        <img src="/assets/img/bg-img/backgoung.jpg">
+                        <div class="text">
+                            <h3>Tên người chơi khác</h3>
+                            <p>Giới thiệu về bản thân</p>
+                            <a href="#" class="add-btn">Gửi lời mời </a>
+                        </div>
+                    </div>
+                    <div class="slider-div" id="image2">
+                        <img src="/assets/img/bg-img/backgoung.jpg">
                         <div class="text">
                             <h3>Tên người chơi khác</h3>
                             <p>Giới thiệu về bản thân</p>
@@ -136,13 +99,18 @@ export default {
 </script>
 
 <style scoped>
+.title-add-friends{
+    position: relative;
+    top: 24px;
+}
 .layout{
     height: 663px;
-    background-color: rgb(209, 162, 128);
+    background-image: url(https://i.imgur.com/VAlghKH.jpg);
+    background-size: cover;
 }
 .grid{
-    margin-top: 3%;
-    margin-bottom: 8%;
+    margin-top: 5%;
+    margin-bottom: 4%;
     margin-left: 12%;
     display: grid;
     grid-template-columns: repeat(4, 0.22fr);
