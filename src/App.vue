@@ -10,50 +10,6 @@
   ></iframe>
   <!-- ##### Header Area Start ##### -->
   <header class="header_area">
-<<<<<<< HEAD
-    <div
-      class="
-        classy-nav-container
-        breakpoint-off
-        d-flex
-        align-items-center
-        justify-content-between
-      "
-    >
-      <!-- Classy Menu -->
-      <nav class="classy-navbar" id="essenceNav">
-        <!-- Logo -->
-        <a class="nav-brand" href="/home"
-          >Hexa-<em style="font-style: normal; color: orange">Chess</em></a
-        >
-        <!-- Navbar Toggler -->
-        <div class="classy-navbar-toggler">
-          <span class="navbarToggler"
-            ><span></span><span></span><span></span
-          ></span>
-        </div>
-        <!-- Menu -->
-        <div class="classy-menu">
-          <!-- close btn -->
-          <div class="classycloseIcon">
-            <div class="cross-wrap">
-              <span class="top"></span><span class="bottom"></span>
-            </div>
-          </div>
-          <!-- Nav Start -->
-          <div class="classynav">
-            <ul>
-              <li><a class="change" href="/home">TRANG CHỦ</a></li>
-              <li><a class="change" href="/intro">GIỚI THIỆU</a></li>
-              <li><a class="change" href="#">CÁCH CHƠI</a></li>
-              <li><a class="change" href="/chat">CHAT GAME</a></li>
-              <li><a class="change" href="/profile">HỒ SƠ</a></li>
-            </ul>
-          </div>
-          <!-- Nav End -->
-        </div>
-      </nav>
-=======
     <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
         <!-- Classy Menu -->
         <nav class="classy-navbar" id="essenceNav">
@@ -83,7 +39,6 @@
                 <!-- Nav End -->
             </div>
         </nav>
->>>>>>> 7600742a68b21b297c5a947edfc14ecf2db68f81
     </div>
   </header>
   <!-- ##### Header Area End ##### -->
