@@ -7,7 +7,7 @@
                 <div class="hero-content">
                     <h6>Thử Sức Với Siêu Phẩm</h6>
                     <h2>CỜ TƯỚNG CHIẾN !</h2>
-                    <a href="/board" class="btn essence-btn" style="border-radius:10px">CHƠI NGAY</a>
+                    <a href="/login" class="btn essence-btn" style="border-radius:10px">CHƠI NGAY</a>
                 </div>
             </div>
         </div>
@@ -23,7 +23,8 @@
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(assets/img/bg-img/buttonchess.jpg);border: 5px solid orange;">
                     <div class="catagory-content">
-                        <a href="/login">ĐĂNG NHẬP</a>
+                        <a href="/profile" v-if="kiemtra === 'dangky'">TRANG CÁ NHÂN</a>
+                        <a href="/login" v-else>ĐĂNG NHẬP</a>
                     </div>
                 </div>
             </div>
@@ -31,7 +32,7 @@
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(assets/img/bg-img/buttonchess1.jpg);border: 5px solid orange;">
                     <div class="catagory-content">
-                        <a href="#">ĐĂNG KÝ</a>
+                        <a href="#"><img src="https://i.imgur.com/gYO2PUe.png" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -39,7 +40,7 @@
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(assets/img/bg-img/buttonchess2.jpg);border: 5px solid orange;">
                     <div class="catagory-content">
-                        <a href="/room">KHÁCH</a>
+                        <a href="/computer">MÁY</a>
                     </div>
                 </div>
             </div>
@@ -195,11 +196,19 @@
 </template>
 
 <script>
+// import login from '../components/Login.vue'
 export default {
-    name: 'Home'
+    name: 'Home',
+    data(){
+        
+    }
 }
 </script>
 
-<style>
-
+<style scoped>
+    .catagory-content img{
+        position: relative;
+        display: block;
+        width: 90px;
+    }
 </style>

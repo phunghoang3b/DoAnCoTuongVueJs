@@ -6,20 +6,22 @@
         <div class="form-group">
           <label>Tên đăng nhập:</label>
           <input
-            type="username"
+            type="username" required
             class="form-control form-control-lg"
             placeholder="Tên đăng nhập ..."
+            v-model="account.username"
           />
         </div>
         <div class="form-group">
           <label>Mật khẩu</label>
           <input
-            type="password"
+            type="password" required
             class="form-control form-control-lg"
             placeholder="Mật khẩu ..."
+            v-model="account.password"
           />
         </div><br>
-        <button type="submit" class="btn btn-lg btn-block btn1">
+        <button @click="DangNhap" type="submit" class="btn btn-lg btn-block btn1">
           Đăng nhập
         </button>
         <label class="lbl-reg">Bạn chưa có tài khoản ? &nbsp;<a href="/register">Đăng Ký</a></label>
@@ -42,8 +44,40 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'Login'
+  name: 'Login',
+  data() {
+    return {
+      account: {
+        username: '',
+        password: ''
+      },
+    };
+  },
+  methods: {
+    DangNhap(e) {
+      e.preventDefault();
+      axios
+        .post("http://localhost:81/hexachess/login.php", {
+          taikhoan: this.account.username,
+          matkhau: this.account.password
+        })
+        .then(function (response) {
+          if (response.data == 'Sai Mật Khẩu') {
+            console.log(response.data);
+          }else if (response.data == 'Tài khoản không tồn tại') {
+            console.log(response.data);
+          }else{
+            console.log(response.data);
+            window.location.href="http://localhost:8080/"
+          }        
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  }
 };
 </script>
 

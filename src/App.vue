@@ -6,10 +6,10 @@
         <!-- Classy Menu -->
         <nav class="classy-navbar" id="essenceNav">
             <!-- Logo -->
-            <a class="nav-brand" href="/home">Hexa-<em style="font-style: normal;color: orange;">Chess</em></a>
+            <a class="nav-brand" href="/">Hexa-<em style="font-style: normal;color: orange;">Chess</em></a>
             <!-- Navbar Toggler -->
             <div class="classy-navbar-toggler">
-                <span class="navbarToggler"><span></span><span></span><span></span></span>
+                <span class="navbarToggler"></span>
             </div>
             <!-- Menu -->
             <div class="classy-menu">
@@ -20,11 +20,12 @@
                 <!-- Nav Start -->
                 <div class="classynav">
                     <ul>
-                        <li><a class="change" href="/home">TRANG CHỦ</a></li>
+                        <li><a class="change" href="/">TRANG CHỦ</a></li>
                         <li><a class="change" href="/intro">GIỚI THIỆU</a></li>
-                        <li><a class="change" href="#">CÁCH CHƠI</a></li>
+                        <li><a class="change" href="/rule">CÁCH CHƠI</a></li>
                         <li><a class="change" href="/chat">CHAT GAME</a></li>
                         <li><a class="change" href="/profile">HỒ SƠ</a></li>
+                        <li><a class="change" href="/addfriend">KẾT BẠN</a></li>                                      
                     </ul>
                 </div>
                 <!-- Nav End -->
