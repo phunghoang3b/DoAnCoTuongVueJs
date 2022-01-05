@@ -23,7 +23,7 @@
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(assets/img/bg-img/buttonchess.jpg);border: 5px solid orange;">
                     <div class="catagory-content">
-                        <a href="/profile" v-if="kiemtra === 'dangky'">TRANG CÁ NHÂN</a>
+                        <a href="/profile" v-if="kiemtra === 'idLogin'">HỒ SƠ</a>
                         <a href="/login" v-else>ĐĂNG NHẬP</a>
                     </div>
                 </div>
@@ -196,7 +196,6 @@
 </template>
 
 <script>
-// import login from '../components/Login.vue'
 export default {
     name: 'Home',
     data(){

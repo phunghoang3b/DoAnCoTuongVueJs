@@ -142,7 +142,7 @@ export default {
         background-color: rgba(0,0,0,0.8);
         box-shadow: 0 0 17px #333;
         margin: 5% auto;
-        height: 560px;
+        height: 512px;
     }
     
     *{
