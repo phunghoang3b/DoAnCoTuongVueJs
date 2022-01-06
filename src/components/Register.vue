@@ -67,7 +67,7 @@ export default {
       e.preventDefault();
       console.log("Ok");
       axios
-        .post("http://localhost:81/hexachess/test.php", {
+        .post("http://localhost/hexachess/test.php", {
           hoten: this.account.fullname,
           taikhoan: this.account.username,
           matkhau: this.account.password,

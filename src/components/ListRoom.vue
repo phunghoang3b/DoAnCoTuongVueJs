@@ -8,9 +8,12 @@
             O   
           </a>
         </div>
-        <button class="btn-create" @click="join">Tạo bàn mới</button>
+        <button class="btn-create" @click="ClickCreateNewRoom">Tạo bàn mới</button>
         <div class="list-Room">
-        <!-- nơi chứa danh sách phòng -->
+          <div class="" v-for="data in DataRoom" :key="data">
+            <!-- nơi chứa danh sách phòng -->
+            <a href="#" style="fontSize:20px;">{{ data.RoomName }}</a>
+          </div>
         </div>
       </div>
   </div>
@@ -24,14 +27,36 @@ export default {
     return{
       min: 1000,
       max: 9999,
+      isGetRoom: true,
+      DataRoom: [],
+      strRoomName: "xin chào"
     }
   },
 
   created(){ // Khởi tạo socket kết nối tới server
     this.socketInstance = io("http://localhost:3000/");
+    this.socketInstance.emit("socketClientSendRequestListRoom", this.isGetRoom);
+    this.LoadRoom();
   },
 
   methods: {
+    LoadRoom: function () {
+      const push = this.DataRoom;
+
+      this.socketInstance.on("socketServerSendRequestListRoom", function (Data) {
+        // console.log("Nhận dữ liệu danh sách phòng từ server: " + Data[1].roomname);
+
+        console.log("Nhận tổng số phòng: " + Data.length)
+
+        for(let i=0; i<Data.length; i++)
+        {
+          push.push({
+            RoomName: Data[i].roomname,
+          });
+          console.log("Tên phòng thứ "+ i+ ": "+ Data[i].roomname)
+        }
+      });
+    },
     ClickCreateNewRoom(){
       var vHostName = "Temp";
       this.socketInstance.emit("socketClientCreateNewRoom", vHostName); // Gửi dữ liệu tên chủ phòng từ client đến server
@@ -39,7 +64,7 @@ export default {
       this.socketInstance.on("socketServerSendChangePageToBoard", function (DataServerSend) {
         if(DataServerSend.isCheckChange){
           alert("Bạn tạo phòng thành công với tên: " + DataServerSend.NewRoomName);
-          this.$router.push('/board'); //Phần chuyển trang này chưa làm được
+          // this.$router.push('/board'); //Phần chuyển trang này chưa làm được
 
           //Còn chưa xử lý xuất ra danh sách phòng từ CSDL
         }

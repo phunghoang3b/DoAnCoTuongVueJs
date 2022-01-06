@@ -59,7 +59,7 @@ export default {
     DangNhap(e) {
       e.preventDefault();
       axios
-        .post("http://localhost:81/hexachess/login.php", {
+        .post("http://localhost/hexachess/login.php", {
           taikhoan: this.account.username,
           matkhau: this.account.password
         })
