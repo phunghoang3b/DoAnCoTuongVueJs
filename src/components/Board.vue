@@ -12,8 +12,7 @@
          <div class="row h-100 g-0">
           <div class="col-md-6">
              <div class="card card-span h-100 text-white">
-               <!-- bàn cờ và quân cờ -->
-               <div class="test" style="width: 100%;">
+               <div class="test">
                  <h1></h1>
                   <img @load="loadCo" @click="clickCo(co)" v-for="co in hinh" :id="co.id" :src="co.hinh" :style="co.vitri" :class="co.class" :key="co" alt="" style="position: absolute;">
                   <img @click="clickDiChuyen(src)" v-for="src in dot" :src="src.hinh" :style="src.vitri" :class="src.class" :key="src" alt="" style="position: absolute;">
@@ -84,6 +83,7 @@ import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
 
 export default {
+  components: { },
   name: 'Board',
   data() {
     return {
@@ -215,10 +215,10 @@ export default {
           if (MaTran[y][x].id == mang[i].id) {
             if (loaico[1] != mang[i].loai) {
               if (mang[i].id == "tuong") {
-                //alert("Quân đen thua");
+                alert("Bạn đã chiến thắng");
               } else {
                 if (mang[i].id == "tuong_do") {
-                  //alert("Quân đỏ thua ");
+                  alert("Bạn đã chiến thắng");
                 }
                 else {
                   this.hinh[i].hinh = null;
@@ -261,10 +261,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .test{
+    width: 94%;
+    position: absolute;
+    top: 18px;
+    left: 18px;
+  }
   .main{
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 25px;
+    margin-top: 25px;
   }
   .hinh-anh{
     position: relative;
@@ -377,5 +383,9 @@ export default {
   background-color: yellow;
   font-size: 16px;
   font-weight: bold;
+}
+.card-img {
+  margin-top: -8px;
+  display: inline-block;
 }
 </style>

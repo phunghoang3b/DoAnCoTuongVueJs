@@ -1,14 +1,6 @@
 <template>
-  <iframe
-    name="iframe1"
-    id="iframe1"
-    src="assets/img/video/nhaccotuong.mp3"
-    frameborder="0"
-    border="0"
-    cellspacing="0"
-    style="border-style: none; width: 0; height: 0"
-  ></iframe>
-  <!-- ##### Header Area Start ##### -->
+    <iframe name="iframe1" id="iframe1" src="assets/img/video/VanCoTuong.mp3" frameborder="0" border="0" cellspacing="0" style="border-style: none;width: 0; height: 0;"></iframe>
+   <!-- ##### Header Area Start ##### -->
   <header class="header_area">
     <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
         <!-- Classy Menu -->
