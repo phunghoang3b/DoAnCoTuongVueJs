@@ -1,11 +1,19 @@
 <template>
+  <!-- <button @click="showModal">Show modal</button>
+  <Modal :model-value="true" :close="closeModal" :disabled="!isShow">
+    <div class="modal">
+      <p>change v-show</p>
+      <button @click="closeModal">close</button>
+    </div>
+  </Modal> -->
    <main class="main" id="top">
      <section>
        <div class="container">
          <div class="row h-100 g-0">
           <div class="col-md-6">
              <div class="card card-span h-100 text-white">
-               <div class="test" style="width: 100%;">
+               <div class="test">
+                 <h1></h1>
                   <img @load="loadCo" @click="clickCo(co)" v-for="co in hinh" :id="co.id" :src="co.hinh" :style="co.vitri" :class="co.class" :key="co" alt="" style="position: absolute;">
                   <img @click="clickDiChuyen(src)" v-for="src in dot" :src="src.hinh" :style="src.vitri" :class="src.class" :key="src" alt="" style="position: absolute;">
                   <img class="card-img h-100" src="coduyluan/Banco.png" alt="..." />
@@ -68,14 +76,18 @@
 </template>
 
 <script>
-//import a from '@/Test/class'
+//Import thư viện server
+import { io } from "socket.io-client";
 import mang from '@/Test/test.js'
 import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
+
 export default {
+  components: { },
   name: 'Board',
   data() {
     return {
+      isShow: true,
       mangi: 1,
       hinh: [
         {
@@ -97,8 +109,42 @@ export default {
           x: null,
           y: null
         }
-      ]
+      ],
+      DataQuanCo: []
     }
+  },
+  created() {
+    this.socketInstance = io("http://localhost:3000/");
+    //const push = this.DataQuanCo;
+    const Hinh = this.hinh;
+    this.socketInstance.on("socketClientSendDataQuanCoToServer", function (Data) {
+      console.log(
+        "Nhận nội dung từ máy khác: " + Data.x +  "-" + Data.y + " " + Data.user
+      );
+      if (Data.CoBiAn != -1) {
+        if (mang[Data.CoBiAn].id == "tuong") {
+          alert("Bạn đã thua");
+        }else{
+          if (mang[Data.CoBiAn].id == "tuong_do") {
+            alert("Bạn đã thua");
+          }else Hinh[Data.CoBiAn].hinh = null;
+        }
+      }
+      MaTran[Data.Yold][Data.Xold].id = "";
+      MaTran[Data.y][Data.x].id = mang[Data.quanCo].id;
+      Hinh[Data.quanCo].vitri = 'left: ' + Data.left + 'px; top: ' + Data.top + 'px';
+
+      // push.user = Data.user;
+      // push.x = Data.x;
+      // push.y = Data.y;
+      // push.quanCo = Data.quanCo;
+      // // push.splice(0); //Xóa dữ liệu nước đi cũ
+      // // push.push({
+      // //   user: Data.user,
+      // //   x: Data.x,
+      // //   y: Data.y
+      // // });
+    });
   },
   methods: {
     loadCo: function(){
@@ -153,10 +199,13 @@ export default {
       //Xóa dấu dot cũ
       this.dot.splice(0);
       //Xóa con cờ ở điểm cũ
+      var vXold, vYold;
       for (let i = 0; i <= 9; i++) {
         for (let j = 0; j <= 8; j++) {
           if (MaTran[i][j].id == loaico[0]) {
             MaTran[i][j].id = "";
+            vYold = i;
+            vXold = j;
           }
         }
       }
@@ -166,14 +215,15 @@ export default {
           if (MaTran[y][x].id == mang[i].id) {
             if (loaico[1] != mang[i].loai) {
               if (mang[i].id == "tuong") {
-                alert("Quân đen thua");
+                alert("Bạn đã chiến thắng");
               } else {
                 if (mang[i].id == "tuong_do") {
-                  alert("Quân đỏ thua ");
+                  alert("Bạn đã chiến thắng");
                 }
                 else {
                   this.hinh[i].hinh = null;
                   MaTran[y][x].id = mang[ConCoHienTai].id;
+                  this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
                 }
               }
             }
@@ -181,16 +231,46 @@ export default {
         }
       } else {
         MaTran[y][x].id = mang[ConCoHienTai].id;
+        //Truyền dữ liệu nước đi
+        this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, -1);
       }
+    },
+    SendData(dataCo, dataX, dataY, dataXold, dataYold, dataLeft, dataTop, dataCoBiAn) {
+      const DataChess = {
+        // Tạo dữ liệu để gửi sang server
+        id: new Date().getTime(),
+        user: "Temp",
+        quanCo: dataCo,
+        x: dataX,
+        y: dataY,
+        Xold: dataXold,
+        Yold: dataYold,
+        left: dataLeft,
+        top: dataTop,
+        CoBiAn: dataCoBiAn
+      };
+
+      //Gửi dữ liệu từ client sang server
+      this.socketInstance.emit(
+        "socketClientSendDataQuanCoToServer",
+        DataChess
+      );
+      console.log('Truyền dữ liệu nước đi');
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+  .test{
+    width: 94%;
+    position: absolute;
+    top: 18px;
+    left: 18px;
+  }
   .main{
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 25px;
+    margin-top: 25px;
   }
   .hinh-anh{
     position: relative;
@@ -303,5 +383,9 @@ export default {
   background-color: yellow;
   font-size: 16px;
   font-weight: bold;
+}
+.card-img {
+  margin-top: -8px;
+  display: inline-block;
 }
 </style>

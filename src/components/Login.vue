@@ -2,11 +2,13 @@
   <div class="vue-tempalte">
     <form class="body-login">
       <div class="content-login">
-        <h3>Đăng Nhập</h3><br>
+        <h3>Đăng Nhập</h3>
+        <br />
         <div class="form-group">
           <label>Tên đăng nhập:</label>
           <input
-            type="username" required
+            type="username"
+            required
             class="form-control form-control-lg"
             placeholder="Tên đăng nhập ..."
             v-model="account.username"
@@ -15,16 +17,24 @@
         <div class="form-group">
           <label>Mật khẩu</label>
           <input
-            type="password" required
+            type="password"
+            required
             class="form-control form-control-lg"
             placeholder="Mật khẩu ..."
             v-model="account.password"
           />
-        </div><br>
-        <button @click="DangNhap" type="submit" class="btn btn-lg btn-block btn1">
+        </div>
+        <br />
+        <button
+          @click="DangNhap"
+          type="submit"
+          class="btn btn-lg btn-block btn1"
+        >
           Đăng nhập
         </button>
-        <label class="lbl-reg">Bạn chưa có tài khoản ? &nbsp;<a href="/register">Đăng Ký</a></label>
+        <label class="lbl-reg"
+          >Bạn chưa có tài khoản ? &nbsp;<a href="/register">Đăng Ký</a></label
+        >
         <div class="social-icons">
           <ul>
             <li>
@@ -40,71 +50,93 @@
         </div>
       </div>
     </form>
+    <div v-for="row in info" v-bind:key="row.id">
+      {{ row }}
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
+//import TenDangNhap from '@/Test/ThongTinNguoiChoi'
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
+      info: "",
       account: {
-        username: '',
-        password: ''
+        username: "",
+        password: "",
       },
     };
   },
   methods: {
-    DangNhap(e) {
+    async DangNhap(e) {
       e.preventDefault();
-      axios
-        .post("http://localhost/hexachess/login.php", {
-          taikhoan: this.account.username,
-          matkhau: this.account.password
-        })
-        .then(function (response) {
-          if (response.data == 'Sai Mật Khẩu') {
-            console.log(response.data);
-          }else if (response.data == 'Tài khoản không tồn tại') {
-            console.log(response.data);
-          }else{
-            console.log(response.data);
-            window.location.href="http://localhost:8080/"
-          }        
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      const response = await axios.post("hexachess/login.php", {
+        taikhoan: this.account.username,
+        matkhau: this.account.password,
+      });
+      if (response.data == "Sai Mật Khẩu") {
+        console.log(response.data);
+      } else if (response.data == "Tài khoản không tồn tại") {
+        console.log(response.data);
+      } else {
+        localStorage.setItem('key', response.data[0].id);
+        window.location.href = "http://localhost:8080/";
+      }
+      
+      // axios
+      //   .post("hexachess/login.php", {
+      //     taikhoan: this.account.username,
+      //     matkhau: this.account.password
+      //   })
+      //   .then(function (response) {
+      //     if (response.data == 'Sai Mật Khẩu') {
+      //       console.log(response.data);
+      //     }else if (response.data == 'Tài khoản không tồn tại') {
+      //       console.log(response.data);
+      //     }else{
+      //       //const ten = TenDangNhap(This.account.username);
+      //       //console.log(ten);
+      //       console.log(response.data);
+      //       This.info = response.data;
+      //       console.log(This.info);
+      //       window.location.href="http://localhost:8080/"
+      //     }
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
-.vue-tempalte{
+.vue-tempalte {
   display: flex;
   height: 663px;
   justify-content: center;
   background-image: url(https://i.imgur.com/91Oj0DG.jpg);
   background-size: cover;
 }
-.body-login{
-    width: 35%;
-    position: relative;
-    background-color: rgba(0,0,0,0.5);
-    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    height: 550px;
-    margin: auto;
-    border-radius: 10px;
+.body-login {
+  width: 35%;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  height: 550px;
+  margin: auto;
+  border-radius: 10px;
 }
-.content-login{
-    position: relative;
-    display: inline-block;
-    top: 8%;
-    width: 80%;
+.content-login {
+  position: relative;
+  display: inline-block;
+  top: 8%;
+  width: 80%;
 }
-.content-login h3{
+.content-login h3 {
   color: #fff;
   font-size: 40px;
 }
@@ -114,13 +146,12 @@ export default {
   font-weight: 300;
   font-size: 1.5em;
   color: #222222;
-
 }
-.form-group label{
+.form-group label {
   color: #fff;
   font-size: 20px;
 }
-.btn1{
+.btn1 {
   width: 55%;
   position: relative;
   margin: auto;
@@ -128,11 +159,11 @@ export default {
   background-image: linear-gradient(to right, #ffd080, #e28743);
   font-weight: bold;
 }
-.content-login .lbl-reg{
+.content-login .lbl-reg {
   color: #ffd080;
   font-size: 15px;
 }
-.content-login .lbl-reg a{
+.content-login .lbl-reg a {
   font-size: 15px;
 }
 .social-icons ul {
@@ -173,12 +204,12 @@ export default {
   color: #f1c685;
 }
 .text-right {
-  text-align: right!important;
+  text-align: right !important;
   color: white;
 }
 .nav-link {
   display: block;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   color: black;
 }
 .btn-outline-primary {
@@ -188,6 +219,6 @@ export default {
 .btn-outline-primary:hover {
   color: #212529;
   border-color: #ffc107;
-  background:orange;
+  background: orange;
 }
 </style>

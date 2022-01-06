@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div
     class="container-chat"
     style="background-image: url(assets/img/bg-img/test.png); background-size: inherit;">
     <h2>Cùng Hexa-Chess thỏa sức trò chuyện và bàn chiến thuật !</h2>
@@ -20,6 +20,15 @@
               <div class="chat-section">
                 <div class="main-wrapper">
                   <div class="chat-content">
+                    <div ref="refMessageBoardChat" v-for="data in MsgInBoard" :key="data.id">
+                      <b>
+                        {{ data.user }}
+                      </b>
+                      : {{ data.text }}
+                    </div>
+                    <div>
+                      {{ dataChat }}
+                    </div>
                     <div v-for="data in DataChat" :key="data">
                       <b>
                         {{ data.user }}
@@ -39,7 +48,8 @@
                     />
                     <button @click="btnClickSendMsg" id="btn-send">
                       <i class="glyphicon">Send</i>
-                    </button>
+                    </button>&nbsp;
+                    <a href="">Mời</a>
                   </form>
                 </div>
               </div>
@@ -59,7 +69,9 @@ export default {
   data() {
     return {
       idinputMsgField: null,
-      DataChat: []
+      MsgInBoard: [],
+      DataChat: [],
+      dataChat: "",
     };
   },
 
@@ -132,27 +144,34 @@ export default {
 </script>
 
 <style>
-.container-chat {
-  height: 663px;
-  display: flex;
-}
-.container-chat h2 {
-  position: absolute;
-  top: 13%;
-  left: 20%;
-  text-transform: uppercase;
-  color: #111;
-  font-family: cursive;
-  border-radius: 10px;
-  background-color: yellow;
-}
-.body-chat {
-  width: 1620px;
-  border-radius: 25px;
-  background-color: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 17px #333;
-  margin: 5% auto;
-  height: 560px;
+    .container-chat{
+        height: 663px;
+        display: flex;
+    }
+    .container-chat h2{
+        position: absolute;
+        top: 13%;
+        left: 20%;
+        text-transform: uppercase;
+        color: #111;
+        font-family: cursive;
+        border-radius: 10px;
+        background-color: yellow;
+    }
+    .body-chat{
+        width: 1620px;
+        border-radius: 25px;
+        background-color: rgba(0,0,0,0.8);
+        box-shadow: 0 0 17px #333;
+        margin: 5% auto;
+        height: 512px;
+    }
+    
+    *{
+    margin:0;
+    padding:10;
+    box-sizing: border-box;
+    
 }
 
 * {
@@ -219,6 +238,17 @@ export default {
   border-radius: 3px;
   margin-bottom: 10px;
   scrollbar-width: none;
+}
+
+.msg-tex a{
+  width: 15%;
+  text-align: center;
+  background-color: #e28743;
+  height: 39px;
+  padding: 10px;
+  font-size: 16px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 /* .chat-container .message{
