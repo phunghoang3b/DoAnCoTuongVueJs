@@ -10,6 +10,7 @@
             class="form-control form-control-lg"
             placeholder="Nhập họ và tên ..."
             v-model="account.fullname"
+            id="idHoVaTen"
           />
         </div>
         <div class="form-group">
@@ -19,6 +20,7 @@
             class="form-control form-control-lg"
             placeholder="Nhập tên đăng nhập ..."
             v-model="account.username"
+            id="idTenDangNhap"
           />
         </div>
         <div class="form-group">
@@ -28,6 +30,7 @@
             class="form-control form-control-lg"
             placeholder="Nhập Email ..."
             v-model="account.email"
+            id="idEmail"
           />
         </div>
         <div class="form-group">
@@ -37,6 +40,7 @@
             class="form-control form-control-lg"
             placeholder="Nhập mật khẩu ..."
             v-model="account.password"
+            id="idMatKhau"
           />
         </div><br>
         <button type="submit" @click="DangKy" class="btn btn-lg btn-block btn1">
@@ -64,35 +68,36 @@ export default {
   },
   methods: {
     async DangKy(e) {
+      var varArray = document.getElementsByTagName('input');
+      var idHoVaTen = varArray[0].value;
+      var idTenDangNhap = varArray[1].value;
+      var idEmail = varArray[2].value;
+      var idMatKhau = varArray[3].value;
       e.preventDefault();
-      const response = await axios.post("hexachess/register.php", {
+      await axios.post("hexachess/register.php", {
           hoten: this.account.fullname,
           taikhoan: this.account.username,
           matkhau: this.account.password,
           email: this.account.email
-        });
-        if (response.data == 'Success') {
-          alert('Đăng ký thành công');
-          this.$router.push('/login');
-        }else alert('Tài khoản này đã được dùng');
-        
-      // axios
-      //   .post("hexachess/test.php", {
-      //     hoten: this.account.fullname,
-      //     taikhoan: this.account.username,
-      //     matkhau: this.account.password,
-      //     email: this.account.email
-      //   })
-      //   .then(function (response) {
-      //       if (response.data == 'Success') {
-      //           console.log(response.data);
-      //           //window.location.href = "http://localhost:8080/login";
-      //           alert('Đăng ký thành công');
-      //       }
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
+        })
+        .then(function (response) {
+          if(idHoVaTen == "" || idTenDangNhap == "" || idEmail == "" || idMatKhau ==""){
+            alert("Các trường thông tin không được để trống !");
+            return;
+          }
+           if(idTenDangNhap.length < 3 || idTenDangNhap > 10 || idMatKhau.length < 3 || idMatKhau > 10){
+            alert ("Tài khoản, mật khẩu không ít hơn 3 ký tự và không vượt quá 10 ký tự");
+            return;
+          }
+          if (response.data == 'Success') {
+            console.log(response.data);
+            window.location.href = "http://localhost:8080/login";
+            alert('Đăng ký thành công');
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+      });
     },
   }
 };

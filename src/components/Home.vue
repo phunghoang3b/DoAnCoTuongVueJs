@@ -10,10 +10,10 @@
             <h6>Thử Sức Với Siêu Phẩm</h6>
             <h2>CỜ TƯỚNG CHIẾN !</h2>
             <a v-if="showTrangCaNhan" href="/room" class="btn essence-btn" style="border-radius: 10px">
-                CHƠI NGAY
+                PHÒNG CỜ
             </a>
             <a v-else href="/login" class="btn essence-btn" style="border-radius: 10px">
-                CHƠI NGAY
+                PHÒNG CỜ
             </a>
           </div>
         </div>
@@ -215,10 +215,7 @@
     style="margin-top: -45px"
   >
     <div class="hinh-anh">
-      <img
-        src="assets/img/bg-img/logokyvuong.png"
-        style="width: 50%; position: relative; margin-left: 308%"
-      />
+        <img src="assets/img/bg-img/logokyvuong.png" style="width: 24%;position: relative;margin-left: 160%;"/>
     </div>
   </div>
   <!-- ##### Brands Area End ##### -->
