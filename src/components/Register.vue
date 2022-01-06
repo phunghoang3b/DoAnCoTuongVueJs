@@ -65,14 +65,17 @@ export default {
   methods: {
     async DangKy(e) {
       e.preventDefault();
-      const response = await axios.post("hexachess/test.php", {
+      const response = await axios.post("hexachess/register.php", {
           hoten: this.account.fullname,
           taikhoan: this.account.username,
           matkhau: this.account.password,
           email: this.account.email
         });
-        console.log(response);
-        this.$router.push('/login');
+        if (response.data == 'Success') {
+          alert('Đăng ký thành công');
+          this.$router.push('/login');
+        }else alert('Tài khoản này đã được dùng');
+        
       // axios
       //   .post("hexachess/test.php", {
       //     hoten: this.account.fullname,

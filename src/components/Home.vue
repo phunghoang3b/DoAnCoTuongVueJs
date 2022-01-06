@@ -225,8 +225,6 @@
 </template>
 
 <script>
-// import login from '../components/Login.vue'
-//import axios from "axios";
 export default {
   name: "Home",
   data() {
@@ -235,15 +233,10 @@ export default {
     };
   },
   created() {
-    // const response = await axios.post("hexachess/infomation.php", {
-    //   id: localStorage.getItem("key"),
-    // });
-    localStorage.clear();
-    if (localStorage.getItem("key") != null) {
+    if (sessionStorage.getItem("key") != null) {
       this.showTrangCaNhan = true;
     }
-    // console.log(response.data[0]);
-  },
+  }
 };
 </script>
 

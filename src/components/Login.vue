@@ -78,11 +78,11 @@ export default {
         matkhau: this.account.password,
       });
       if (response.data == "Sai Mật Khẩu") {
-        console.log(response.data);
+        alert(response.data);
       } else if (response.data == "Tài khoản không tồn tại") {
-        console.log(response.data);
+        alert(response.data);
       } else {
-        localStorage.setItem('key', response.data[0].id);
+        sessionStorage.setItem('key', response.data);
         window.location.href = "http://localhost:8080/";
       }
       
