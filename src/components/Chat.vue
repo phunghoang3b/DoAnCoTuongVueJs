@@ -48,7 +48,8 @@
                     />
                     <button @click="btnClickSendMsg" id="btn-send">
                       <i class="glyphicon">Send</i>
-                    </button>
+                    </button>&nbsp;
+                    <a href="">Mời</a>
                   </form>
                 </div>
               </div>
@@ -237,6 +238,17 @@ export default {
   border-radius: 3px;
   margin-bottom: 10px;
   scrollbar-width: none;
+}
+
+.msg-tex a{
+  width: 15%;
+  text-align: center;
+  background-color: #e28743;
+  height: 39px;
+  padding: 10px;
+  font-size: 16px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 /* .chat-container .message{
