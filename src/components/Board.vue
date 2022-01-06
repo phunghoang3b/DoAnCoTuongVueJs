@@ -1,14 +1,9 @@
 <template>
-  <!-- <button @click="showModal">Show modal</button>
-  <Modal :model-value="true" :close="closeModal" :disabled="!isShow">
-    <div class="modal">
-      <p>change v-show</p>
-      <button @click="closeModal">close</button>
-    </div>
-  </Modal> -->
    <main class="main" id="top">
      <section>
        <div class="container">
+          <PopupWin v-if="isPopupWin"></PopupWin>
+          <PopupLose v-if="isPopupLose"></PopupLose>
          <div class="row h-100 g-0">
           <div class="col-md-6">
              <div class="card card-span h-100 text-white">
@@ -81,12 +76,19 @@ import { io } from "socket.io-client";
 import mang from '@/Test/test.js'
 import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
+import PopupWin from './PopupWin'
+import PopupLose from './PopupLose'
 
 export default {
-  components: { },
+  components: { 
+    PopupWin,
+    PopupLose
+   },
   name: 'Board',
   data() {
     return {
+      isPopupWin: false,
+      isPopupLose: false,
       isShow: true,
       mangi: 1,
       hinh: [
@@ -115,38 +117,39 @@ export default {
   },
   created() {
     this.socketInstance = io("http://localhost:3000/");
-    //const push = this.DataQuanCo;
-    const Hinh = this.hinh;
-    this.socketInstance.on("socketClientSendDataQuanCoToServer", function (Data) {
-      console.log(
-        "Nhận nội dung từ máy khác: " + Data.x +  "-" + Data.y + " " + Data.user
-      );
-      if (Data.CoBiAn != -1) {
-        if (mang[Data.CoBiAn].id == "tuong") {
-          alert("Bạn đã thua");
-        }else{
-          if (mang[Data.CoBiAn].id == "tuong_do") {
-            alert("Bạn đã thua");
-          }else Hinh[Data.CoBiAn].hinh = null;
-        }
-      }
-      MaTran[Data.Yold][Data.Xold].id = "";
-      MaTran[Data.y][Data.x].id = mang[Data.quanCo].id;
-      Hinh[Data.quanCo].vitri = 'left: ' + Data.left + 'px; top: ' + Data.top + 'px';
-
-      // push.user = Data.user;
-      // push.x = Data.x;
-      // push.y = Data.y;
-      // push.quanCo = Data.quanCo;
-      // // push.splice(0); //Xóa dữ liệu nước đi cũ
-      // // push.push({
-      // //   user: Data.user,
-      // //   x: Data.x,
-      // //   y: Data.y
-      // // });
-    });
+    this.SocketOn();
   },
   methods: {
+    SocketOn(){
+      const This = this;
+      const Hinh = this.hinh;
+      this.socketInstance.on("socketClientSendDataQuanCoToServer", function (Data) {
+        console.log(
+          "Nhận nội dung từ máy khác: " + Data.x +  "-" + Data.y + " " + Data.user
+        );
+        if (Data.CoBiAn != -1) {
+          if (mang[Data.CoBiAn].id == "tuong") {
+            This.btnOpenPopupLose();
+            
+          }else{
+            if (mang[Data.CoBiAn].id == "tuong_do") {
+              This.btnOpenPopupLose();
+              
+            }else Hinh[Data.CoBiAn].hinh = null;
+          }
+        }
+        MaTran[Data.Yold][Data.Xold].id = "";
+        MaTran[Data.y][Data.x].id = mang[Data.quanCo].id;
+        Hinh[Data.quanCo].vitri = 'left: ' + Data.left + 'px; top: ' + Data.top + 'px';
+      });
+    },
+
+    btnOpenPopupWin(){
+      this.isPopupWin = true;
+    },
+    btnOpenPopupLose(){
+      this.isPopupLose = true;
+    },
     loadCo: function(){
       if (this.mangi < 32) {
           this.hinh.push({
@@ -215,10 +218,12 @@ export default {
           if (MaTran[y][x].id == mang[i].id) {
             if (loaico[1] != mang[i].loai) {
               if (mang[i].id == "tuong") {
-                alert("Bạn đã chiến thắng");
+                this.btnOpenPopupWin();
+                this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
               } else {
                 if (mang[i].id == "tuong_do") {
-                  alert("Bạn đã chiến thắng");
+                  this.btnOpenPopupWin();
+                  this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
                 }
                 else {
                   this.hinh[i].hinh = null;
