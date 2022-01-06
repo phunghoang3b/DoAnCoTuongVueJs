@@ -11,9 +11,11 @@
     "@splidejs/vue-splide": "^0.5.15",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "jenesius-vue-modal": "^1.4.7",
     "socket.io-client": "^4.4.0",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue-simple-alert": "^1.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

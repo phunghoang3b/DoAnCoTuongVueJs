@@ -63,26 +63,33 @@ export default {
     };
   },
   methods: {
-    DangKy(e) {
+    async DangKy(e) {
       e.preventDefault();
-      console.log("Ok");
-      axios
-        .post("http://localhost:81/hexachess/test.php", {
+      const response = await axios.post("hexachess/test.php", {
           hoten: this.account.fullname,
           taikhoan: this.account.username,
           matkhau: this.account.password,
           email: this.account.email
-        })
-        .then(function (response) {
-            if (response.data == 'Success') {
-                console.log(response.data);
-                window.location.href = "http://localhost:8080/login";
-                alert('Đăng ký thành công');
-            }
-        })
-        .catch(function (error) {
-          console.log(error);
         });
+        console.log(response);
+        this.$router.push('/login');
+      // axios
+      //   .post("hexachess/test.php", {
+      //     hoten: this.account.fullname,
+      //     taikhoan: this.account.username,
+      //     matkhau: this.account.password,
+      //     email: this.account.email
+      //   })
+      //   .then(function (response) {
+      //       if (response.data == 'Success') {
+      //           console.log(response.data);
+      //           //window.location.href = "http://localhost:8080/login";
+      //           alert('Đăng ký thành công');
+      //       }
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     },
   }
 };

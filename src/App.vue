@@ -69,6 +69,7 @@
           </tr>
         </table>
       </form>
+      {{account}}
     </section>
   </body> -->
   <!-- ##### Body Area End ##### -->
@@ -172,26 +173,26 @@ export default {
       },
     };
   },
-//   methods: {
-//     DangKy(e) {
-//       e.preventDefault();
-//       console.log("Ok");
-//       axios
-//         .post("http://localhost/hexachess/test.php", {
-//           taikhoan: this.account.username,
-//           matkhau: this.account.password,
-//           email: this.account.email
-//         })
-//         .then(function (response) {
-//             if (response.data == 'Success') {
-//                 console.log(response.data);
-//             }
-//         })
-//         .catch(function (error) {
-//           console.log(error);
-//         });
-//     },
-//   }
+  // methods: {
+  //   DangKy(e) {
+  //     e.preventDefault();
+  //     console.log("Ok");
+  //     axios
+  //       .post("http://localhost/hexachess/test.php", {
+  //         taikhoan: this.account.username,
+  //         matkhau: this.account.password,
+  //         email: this.account.email
+  //       })
+  //       .then(function (response) {
+  //           if (response.data == 'Success') {
+  //               console.log(response.data);
+  //           }
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   },
+  // }
 };
 </script>
 

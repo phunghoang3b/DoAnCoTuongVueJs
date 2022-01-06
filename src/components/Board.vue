@@ -1,10 +1,18 @@
 <template>
+  <!-- <button @click="showModal">Show modal</button>
+  <Modal :model-value="true" :close="closeModal" :disabled="!isShow">
+    <div class="modal">
+      <p>change v-show</p>
+      <button @click="closeModal">close</button>
+    </div>
+  </Modal> -->
    <main class="main" id="top">
      <section>
        <div class="container">
          <div class="row h-100 g-0">
           <div class="col-md-6">
              <div class="card card-span h-100 text-white">
+               <!-- bàn cờ và quân cờ -->
                <div class="test" style="width: 100%;">
                  <h1></h1>
                   <img @load="loadCo" @click="clickCo(co)" v-for="co in hinh" :id="co.id" :src="co.hinh" :style="co.vitri" :class="co.class" :key="co" alt="" style="position: absolute;">
@@ -74,10 +82,12 @@ import { io } from "socket.io-client";
 import mang from '@/Test/test.js'
 import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
+
 export default {
   name: 'Board',
   data() {
     return {
+      isShow: true,
       mangi: 1,
       hinh: [
         {
@@ -103,7 +113,6 @@ export default {
       DataQuanCo: []
     }
   },
-
   created() {
     this.socketInstance = io("http://localhost:3000/");
     //const push = this.DataQuanCo;
@@ -137,7 +146,6 @@ export default {
       // // });
     });
   },
-
   methods: {
     loadCo: function(){
       if (this.mangi < 32) {
