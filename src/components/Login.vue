@@ -10,6 +10,7 @@
             class="form-control form-control-lg"
             placeholder="Tên đăng nhập ..."
             v-model="account.username"
+            id="idName"
           />
         </div>
         <div class="form-group">
@@ -19,6 +20,7 @@
             class="form-control form-control-lg"
             placeholder="Mật khẩu ..."
             v-model="account.password"
+            id="idPass"
           />
         </div><br>
         <button @click="DangNhap" type="submit" class="btn btn-lg btn-block btn1">
@@ -57,6 +59,9 @@ export default {
   },
   methods: {
     DangNhap(e) {
+      var varArray = document.getElementsByTagName('input');
+      var idName = varArray[0].value;
+      var idPass = varArray[1].value;
       e.preventDefault();
       axios
         .post("http://localhost:81/hexachess/login.php", {
@@ -64,9 +69,14 @@ export default {
           matkhau: this.account.password
         })
         .then(function (response) {
+          if(idName == "" || idPass == ""){
+            alert("Tên đăng nhập hoặc mật khẩu không được để trống");
+          }
           if (response.data == 'Sai Mật Khẩu') {
+            alert("Bạn nhập sai mật khẩu");
             console.log(response.data);
           }else if (response.data == 'Tài khoản không tồn tại') {
+            alert("Tài khoản của bạn không tồn tại");
             console.log(response.data);
           }else{
             console.log(response.data);

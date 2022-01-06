@@ -5,38 +5,16 @@
          <div class="row h-100 g-0">
           <div class="col-md-6">
              <div class="card card-span h-100 text-white">
-               <div class="test">
+               <div class="test" style="width: 100%">
                  <h1></h1>
                   <img @load="loadCo" @click="clickCo(co)" v-for="co in hinh" :id="co.id" :src="co.hinh" :style="co.vitri" :class="co.class" :key="co" alt="" style="position: absolute;">
                   <img @click="clickDiChuyen(src)" v-for="src in dot" :src="src.hinh" :style="src.vitri" :class="src.class" :key="src" alt="" style="position: absolute;">
-                  <img class="card-img h-100" src="coduyluan/Banco.png" alt="..." />
+                  <img class="card-img h-100" src="coduyluan/Banco.png" alt="..." style="margin-top:-9px"/>
                   <a class="stretched-link" href="#!"></a>
                </div>
               </div>
            </div>
-           <div class="col-md-6" style="background-color: #E09637;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-             <!-- <div class="bg-300 p-4 h-100 d-flex flex-column justify-content-center">
-               <img src="assets/img/bg-img/logohexa.png" alt="" class="hinh-anh">
-               <h1 class="solo-header">Solo Chiến Thuật </h1>
-               <div class="page">
-                  <div class="field">
-                     <div class="label">
-                        Người Chơi 1
-                     </div>
-                     <input type="text">
-                  </div>
-                  <div class="field">
-                     <div class="label">
-                        Người Chơi 2
-                     </div>
-                     <input type="Number">
-                  </div>
-                  <div class="field btns">
-                     <button class="prev-1 prev">Previous</button>
-                     <button class="next-1 next">Next</button>
-                  </div>
-               </div>
-             </div> -->
+           <div class="col-md-6 BenPhai" style="background-color: #E09637;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
              <img src="assets/img/bg-img/logohexa.png" alt="" class="hinh-anh">
              <h1 class="solo-header">Solo Chiến Thuật </h1>
              <div class="player">
@@ -58,7 +36,7 @@
                <h3>Chat Vui Nào !</h3>
                <input type="text" style="display:inline-block">&nbsp;
                <button>Gửi</button>
-               <textarea name="" id="" cols="65" rows="5" style="border-radius:10px"></textarea>
+               <textarea name="" id="" cols="65" rows="5" style="border-radius:10px;width:90%"></textarea>
              </div>
              <p style="color: yellow;font-size: 20px;">----======{(-_-)}======----</p>
            </div>
@@ -255,15 +233,41 @@ export default {
 </script>
 
 <style scoped>
-  .test{
-    width: 94%;
-    position: absolute;
-    top: 18px;
-    left: 18px;
+.h-100{
+    margin-right: 2%;
+  }
+  @media (max-width: 1200px) {
+    .h-100{
+      width: 510px;
+    }
+    .BenPhai{
+      left: 55%;
+    }
+    .player p{
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    .container{
+      height: 20%;
+    }
+  }
+  @media (max-width: 800px) {
+    .h-100{
+      width: 510px;
+      margin-right: -0.1%
+    }
+    .text-white{
+      margin-left: -3.3%;
+    }
+    .BenPhai{
+      left: -1%;
+    }
   }
   .main{
-    margin-bottom: 25px;
-    margin-top: 25px;
+    margin-bottom: 30px;
+    margin-top: 30px;
   }
   .hinh-anh{
     position: relative;
@@ -376,9 +380,5 @@ export default {
   background-color: yellow;
   font-size: 16px;
   font-weight: bold;
-}
-.card-img {
-  margin-top: -8px;
-  display: inline-block;
 }
 </style>

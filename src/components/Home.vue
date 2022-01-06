@@ -7,7 +7,7 @@
                 <div class="hero-content">
                     <h6>Thử Sức Với Siêu Phẩm</h6>
                     <h2>CỜ TƯỚNG CHIẾN !</h2>
-                    <a href="/login" class="btn essence-btn" style="border-radius:10px">CHƠI NGAY</a>
+                    <a href="/login" class="btn essence-btn" style="border-radius:10px">PHÒNG CỜ</a>
                 </div>
             </div>
         </div>
@@ -189,7 +189,7 @@
 <!-- ##### Brands Area Start ##### -->
 <div class="brands-area d-flex align-items-center justify-content-between" style="margin-top:-45px">
     <div class="hinh-anh">
-        <img src="assets/img/bg-img/logokyvuong.png" style="width: 50%;position:relative;margin-left:308%"/>
+        <img src="assets/img/bg-img/logokyvuong.png" style="width: 24%;position: relative;margin-left: 160%;"/>
     </div>
 </div>
 <!-- ##### Brands Area End ##### -->
