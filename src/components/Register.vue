@@ -67,16 +67,14 @@ export default {
     };
   },
   methods: {
-    DangKy(e) {
+    async DangKy(e) {
       var varArray = document.getElementsByTagName('input');
       var idHoVaTen = varArray[0].value;
       var idTenDangNhap = varArray[1].value;
       var idEmail = varArray[2].value;
       var idMatKhau = varArray[3].value;
       e.preventDefault();
-      console.log("Ok");
-      axios
-        .post("http://localhost:81/hexachess/test.php", {
+      await axios.post("hexachess/register.php", {
           hoten: this.account.fullname,
           taikhoan: this.account.username,
           matkhau: this.account.password,

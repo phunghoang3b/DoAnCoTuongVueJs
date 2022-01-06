@@ -1,4 +1,11 @@
 <template>
+  <!-- <button @click="showModal">Show modal</button>
+  <Modal :model-value="true" :close="closeModal" :disabled="!isShow">
+    <div class="modal">
+      <p>change v-show</p>
+      <button @click="closeModal">close</button>
+    </div>
+  </Modal> -->
    <main class="main" id="top">
      <section>
        <div class="container">
@@ -52,11 +59,13 @@ import { io } from "socket.io-client";
 import mang from '@/Test/test.js'
 import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
+
 export default {
   components: { },
   name: 'Board',
   data() {
     return {
+      isShow: true,
       mangi: 1,
       hinh: [
         {
@@ -82,7 +91,6 @@ export default {
       DataQuanCo: []
     }
   },
-
   created() {
     this.socketInstance = io("http://localhost:3000/");
     //const push = this.DataQuanCo;
@@ -116,7 +124,6 @@ export default {
       // // });
     });
   },
-
   methods: {
     loadCo: function(){
       if (this.mangi < 32) {

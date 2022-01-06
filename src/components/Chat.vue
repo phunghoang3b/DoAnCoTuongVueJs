@@ -126,14 +126,6 @@ export default {
 
     AddMessage() {
       //Tạo phương thức nối nội dung
-      // const data = {
-      //     id: new Date().getTime(),
-      //     text: this.$refs.msgField.value,
-      //     user:"Temp"
-      // }
-
-      // //Nối chuỗi
-      // this.MsgInBoard = this.MsgInBoard.concat(data);
       this.DataChat.push({
         user: "Temp",
         text: this.$refs.msgField.value,
