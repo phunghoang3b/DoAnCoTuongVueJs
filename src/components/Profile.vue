@@ -5,9 +5,8 @@
       <div class="left">
           <img src="assets/img/bg-img/backgoung.jpg"
           alt="user" width="100">
-          <h4>Tên người chơi</h4>
-          <p>Thành tựu</p>
-          <a href="#" class="update-btn">Cập nhật thông tin</a>
+          <h4>{{info.username}}</h4>
+          <a href="#"  class="update-btn">Cập nhật thông tin</a>
       </div>
       <div class="vl"></div>
       <div class="right">
@@ -16,16 +15,13 @@
               <div class="info_data">
                   <div class="data">
                       <h4>Email</h4>
-                      <p>alex@gmail.com</p>
+                      <p>{{info.email}}</p>
                   </div>
                   <div class="data">
-                    <h4>Phone</h4>
-                      <p>0001-213-998761</p>
+                    <h4>Họ và tên</h4>
+                      <p>{{info.fullname}}</p>
                     </div>
-                    <div class="data">
-                    <h4>Địa chỉ</h4>
-                      <p>0001-213-998761</p>
-                    </div>
+
               </div>
           </div>
         <div class="projects">
@@ -33,15 +29,11 @@
               <div class="projects_data">
                 <div class="data">
                   <h4>Số trận thắng</h4>
-                  <p>100 Trận</p>
+                  <p>{{info.win}}</p>
                 </div>
                 <div class="data">
                   <h4>Số trận thua</h4>
-                  <p>5 Trận</p>
-                </div>
-                <div class="data">
-                  <h4>Bạn bè</h4>
-                  <p>50 Người</p>
+                  <p>{{info.lose}}</p>
                 </div>
               </div>
           </div>
@@ -51,8 +43,32 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-    name: 'Profile'
+    name: 'Profile',
+    data() {
+    return {
+      info:""
+    };
+  },
+  created (){
+    const KhoaId = sessionStorage.getItem("key");
+    const This = this;
+    console.log(KhoaId)
+    axios
+        .post("hexachess/infomation.php", {
+          id: KhoaId
+        })
+        .then(function (response) {
+          This.info = response.data[0]
+          console.log(This.info)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  },
+  methods: {
+  },
 }
 </script>
 
@@ -151,12 +167,13 @@ export default {
 }
 .wrapper .right .info_data .data h4,
 .wrapper .right .projects_data .data h4{
+    font-size: 30px;
     color: #fff;
     margin-bottom: 5px;
 }
 .wrapper .right .info_data .data p,
 .wrapper .right .projects_data .data p{
-  font-size: 13px;
+  font-size: 25px;
   margin-bottom: 10px;
   color: #fff;
 }
