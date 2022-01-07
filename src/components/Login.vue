@@ -89,13 +89,11 @@ export default {
           }
           if (response.data == 'Sai Mật Khẩu') {
             alert("Bạn nhập sai mật khẩu");
-            console.log(response.data);
           }else if (response.data == 'Tài khoản không tồn tại') {
             alert("Tài khoản của bạn không tồn tại");
-            console.log(response.data);
           }else{
-            console.log(response.data);
-            window.location.href="http://localhost:8080/room"
+            sessionStorage.setItem('key', response.data);
+            window.location.href="http://localhost:8080/"
           }        
         })
         .catch(function (error) {

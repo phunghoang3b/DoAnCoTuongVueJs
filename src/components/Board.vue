@@ -7,6 +7,9 @@
     </div>
   </Modal> -->
    <main class="main" id="top">
+     <div class="classLogout">
+       <a href="#"><img src="https://i.imgur.com/bRHR6bO.png" alt=""></a>
+     </div>
      <section>
        <div class="container">
          <div class="row h-100 g-0">
@@ -271,6 +274,14 @@ export default {
     .BenPhai{
       left: -1%;
     }
+  }
+  .classLogout{
+    position: fixed;
+    top: 7%;
+    left: 40px;
+  }
+  .classLogout img{
+    width: 80px;
   }
   .main{
     margin-bottom: 30px;

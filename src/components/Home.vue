@@ -32,7 +32,7 @@
             class="single_catagory_area d-flex align-items-center justify-content-center bg-img"
             style="background-image: url(assets/img/bg-img/buttonchess.jpg); border: 5px solid orange;">
             <div class="catagory-content">
-              <a href="/profile" v-if="showTrangCaNhan">TRANG CÁ NHÂN</a>
+              <a href="/profile" v-if="showTrangCaNhan">TRANG CÁ NHÂN <br><a href="#" class="classImgLogout"><img src="https://i.imgur.com/QpR6DDl.png"></a></a>
               <a href="/login" v-else>ĐĂNG NHẬP</a>
             </div>
           </div>
@@ -242,5 +242,10 @@ export default {
   position: relative;
   display: block;
   width: 90px;
+}
+.classImgLogout img{
+  position: relative;
+  width: 50px;
+  margin-left: 132px;
 }
 </style>
