@@ -78,15 +78,16 @@ export default {
       var idName = varArray[0].value;
       var idPass = varArray[1].value;
       e.preventDefault();
+      if(idName == "" || idPass == ""){
+        alert("Tên đăng nhập hoặc mật khẩu không được để trống");
+        return;
+      }
       axios
-        .post("http://localhost:81/hexachess/login.php", {
+        .post("hexachess/login.php", {
           taikhoan: this.account.username,
           matkhau: this.account.password
         })
         .then(function (response) {
-          if(idName == "" || idPass == ""){
-            alert("Tên đăng nhập hoặc mật khẩu không được để trống");
-          }
           if (response.data == 'Sai Mật Khẩu') {
             alert("Bạn nhập sai mật khẩu");
           }else if (response.data == 'Tài khoản không tồn tại') {
