@@ -238,8 +238,7 @@ export default {
     // const response = await axios.post("hexachess/infomation.php", {
     //   id: localStorage.getItem("key"),
     // });
-    localStorage.clear();
-    if (localStorage.getItem("key") != null) {
+    if (sessionStorage.getItem("key") != null) {
       this.showTrangCaNhan = true;
     }
     // console.log(response.data[0]);

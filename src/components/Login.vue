@@ -82,7 +82,8 @@ export default {
       } else if (response.data == "Tài khoản không tồn tại") {
         console.log(response.data);
       } else {
-        localStorage.setItem('key', response.data[0].id);
+        sessionStorage.setItem('key', response.data);
+      
         window.location.href = "http://localhost:8080/";
       }
       
