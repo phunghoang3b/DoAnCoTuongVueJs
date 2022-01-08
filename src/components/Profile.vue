@@ -6,7 +6,7 @@
           <img src="assets/img/bg-img/backgoung.jpg"
           alt="user" width="100">
           <h4>{{info.username}}</h4>
-          <a href="#"  class="update-btn">Cập nhật thông tin</a>
+          <a href="/update"  class="update-btn">Cập nhật thông tin</a>
       </div>
       <div class="vl"></div>
       <div class="right">

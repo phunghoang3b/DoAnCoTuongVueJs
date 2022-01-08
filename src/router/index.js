@@ -12,6 +12,7 @@ import Register from '../components/Register.vue'
 import Rule from '../components/Rule.vue'
 import Computer from '../components/Computer.vue'
 import AddFriend from '../components/AddFriend.vue'
+import UpdateProfile from '../components/UpdateProfile.vue'
 
 const routes = [
     {path: '/board', component: Board},
@@ -25,6 +26,7 @@ const routes = [
     {path: '/rule', component: Rule},
     {path: '/computer', component: Computer},
     {path: '/addfriend', component: AddFriend},
+    {path: '/update', component: UpdateProfile},
 ]
 const router = createRouter({
   history: createWebHistory(),
