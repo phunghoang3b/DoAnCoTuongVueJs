@@ -6,12 +6,14 @@
           <img src="assets/img/bg-img/backgoung.jpg"
           alt="user" width="100">
           <h4>{{info.username}}</h4>
-          <template v-if="isUpdate">
-            <button @click="Update" class="update-btn">Cập nhật</button>
-            <button @click="Cancel" class="update-btn">Hủy</button>
+          <template v-if="isUpdate">  
+            <a href="#" @click="Update" class="update-btn">Cập nhật</a>
+            <a href="#" @click="Cancel" class="update-btn">Hủy</a>
           </template>
-          <button v-else @click="UpdateInfo" class="update-btn">Cập nhật thông tin</button>
-          <!-- <a href="/update"  class="update-btn">Cập nhật thông tin</a> -->
+          <template v-else>
+            <a href="#" @click="UpdateInfo" class="update-btn">Cập nhật thông tin</a>
+            <a href="/updatepassword" class="update-btn">Đổi mật khẩu</a>
+          </template>
       </div>
       <div class="vl"></div>
       <div class="right">
@@ -20,12 +22,12 @@
               <div class="info_data">
                   <div class="data">
                       <h4>Email</h4>
-                      <input v-if="isUpdate" type="text" v-model="info.email"/>
+                      <input v-if="isUpdate" type="email" v-model="info.email" style="border-radius:5px; font-size:15px"/>
                       <p v-else>{{info.email}}</p>
                   </div>
                   <div class="data">
                     <h4>Họ và tên</h4>
-                    <input v-if="isUpdate" type="text" v-model="info.fullname"/>
+                    <input v-if="isUpdate" type="text" v-model="info.fullname" style="border-radius:5px; font-size:15px"/>
                     <p v-else>{{info.fullname}}</p>
                     </div>
               </div>
@@ -35,13 +37,11 @@
               <div class="projects_data">
                 <div class="data">
                   <h4>Số trận thắng</h4>
-                  <input v-if="isUpdate" type="text" v-model="info.win"/>
-                  <p v-else>{{info.win}}</p>
+                  <p>{{info.win}}</p>
                 </div>
                 <div class="data">
                   <h4>Số trận thua</h4>
-                  <input v-if="isUpdate" type="text" v-model="info.lose"/>
-                  <p v-else>{{info.lose}}</p>
+                  <p>{{info.lose}}</p>
                 </div>
               </div>
           </div>
@@ -121,8 +121,9 @@ export default {
   background-image: url(https://i.imgur.com/xrupsGz.jpg);
   height: 663px;
 }
+
 .update-btn{
-  width: 70%;
+  width: 60%;
   display: inline-block;
   padding: 12px 50px;
   color: #fff;
