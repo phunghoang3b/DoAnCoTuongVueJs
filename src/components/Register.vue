@@ -74,6 +74,14 @@ export default {
       var idEmail = varArray[2].value;
       var idMatKhau = varArray[3].value;
       e.preventDefault();
+      if(idHoVaTen == "" || idTenDangNhap == "" || idEmail == "" || idMatKhau ==""){
+        alert("Các trường thông tin không được để trống !");
+        return;
+      }
+      if(idTenDangNhap.length < 3 || idTenDangNhap.length > 10 || idMatKhau.length < 3 || idMatKhau.length > 10){
+        alert ("Tài khoản, mật khẩu không ít hơn 3 ký tự và không vượt quá 10 ký tự");
+        return;
+      }
       await axios.post("hexachess/register.php", {
           hoten: this.account.fullname,
           taikhoan: this.account.username,
@@ -81,16 +89,7 @@ export default {
           email: this.account.email
         })
         .then(function (response) {
-          if(idHoVaTen == "" || idTenDangNhap == "" || idEmail == "" || idMatKhau ==""){
-            alert("Các trường thông tin không được để trống !");
-            return;
-          }
-           if(idTenDangNhap.length < 3 || idTenDangNhap > 10 || idMatKhau.length < 3 || idMatKhau > 10){
-            alert ("Tài khoản, mật khẩu không ít hơn 3 ký tự và không vượt quá 10 ký tự");
-            return;
-          }
           if (response.data == 'Success') {
-            console.log(response.data);
             window.location.href = "http://localhost:8080/login";
             alert('Đăng ký thành công');
           }
