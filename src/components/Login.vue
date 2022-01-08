@@ -12,6 +12,7 @@
             class="form-control form-control-lg"
             placeholder="Tên đăng nhập ..."
             v-model="account.username"
+            id="idName"
           />
         </div>
         <div class="form-group">
@@ -22,6 +23,7 @@
             class="form-control form-control-lg"
             placeholder="Mật khẩu ..."
             v-model="account.password"
+            id="idPass"
           />
         </div>
         <br />
@@ -71,7 +73,10 @@ export default {
     };
   },
   methods: {
-    async DangNhap(e) {
+    DangNhap(e) {
+      var varArray = document.getElementsByTagName('input');
+      var idName = varArray[0].value;
+      var idPass = varArray[1].value;
       e.preventDefault();
       const response = await axios.post("hexachess/login.php", {
         taikhoan: this.account.username,
@@ -86,29 +91,24 @@ export default {
       
         window.location.href = "http://localhost:8080/";
       }
-      
-      // axios
-      //   .post("hexachess/login.php", {
-      //     taikhoan: this.account.username,
-      //     matkhau: this.account.password
-      //   })
-      //   .then(function (response) {
-      //     if (response.data == 'Sai Mật Khẩu') {
-      //       console.log(response.data);
-      //     }else if (response.data == 'Tài khoản không tồn tại') {
-      //       console.log(response.data);
-      //     }else{
-      //       //const ten = TenDangNhap(This.account.username);
-      //       //console.log(ten);
-      //       console.log(response.data);
-      //       This.info = response.data;
-      //       console.log(This.info);
-      //       window.location.href="http://localhost:8080/"
-      //     }
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
+      axios
+        .post("hexachess/login.php", {
+          taikhoan: this.account.username,
+          matkhau: this.account.password
+        })
+        .then(function (response) {
+          if (response.data == 'Sai Mật Khẩu') {
+            alert("Bạn nhập sai mật khẩu");
+          }else if (response.data == 'Tài khoản không tồn tại') {
+            alert("Tài khoản của bạn không tồn tại");
+          }else{
+            sessionStorage.setItem('key', response.data);
+            window.location.href="http://localhost:8080/"
+          }        
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
 };

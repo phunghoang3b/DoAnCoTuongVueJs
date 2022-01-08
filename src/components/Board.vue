@@ -1,49 +1,25 @@
 <template>
-  <!-- <button @click="showModal">Show modal</button>
-  <Modal :model-value="true" :close="closeModal" :disabled="!isShow">
-    <div class="modal">
-      <p>change v-show</p>
-      <button @click="closeModal">close</button>
-    </div>
-  </Modal> -->
    <main class="main" id="top">
+     <div class="classLogout">
+       <a href="/room"><img src="https://i.imgur.com/bRHR6bO.png" alt=""></a>
+     </div>
      <section>
        <div class="container">
+          <PopupWin v-if="isPopupWin"></PopupWin>
+          <PopupLose v-if="isPopupLose"></PopupLose>
          <div class="row h-100 g-0">
           <div class="col-md-6">
              <div class="card card-span h-100 text-white">
-               <div class="test">
+               <div class="test" style="width: 100%">
                  <h1></h1>
                   <img @load="loadCo" @click="clickCo(co)" v-for="co in hinh" :id="co.id" :src="co.hinh" :style="co.vitri" :class="co.class" :key="co" alt="" style="position: absolute;">
                   <img @click="clickDiChuyen(src)" v-for="src in dot" :src="src.hinh" :style="src.vitri" :class="src.class" :key="src" alt="" style="position: absolute;">
-                  <img class="card-img h-100" src="coduyluan/Banco.png" alt="..." />
+                  <img class="card-img h-100" src="coduyluan/Banco.png" alt="..." style="margin-top:-9px"/>
                   <a class="stretched-link" href="#!"></a>
                </div>
               </div>
            </div>
-           <div class="col-md-6" style="background-color: #E09637;border-top-right-radius: 10px;border-bottom-right-radius: 10px; height:600px">
-             <!-- <div class="bg-300 p-4 h-100 d-flex flex-column justify-content-center">
-               <img src="assets/img/bg-img/logohexa.png" alt="" class="hinh-anh">
-               <h1 class="solo-header">Solo Chiến Thuật </h1>
-               <div class="page">
-                  <div class="field">
-                     <div class="label">
-                        Người Chơi 1
-                     </div>
-                     <input type="text">
-                  </div>
-                  <div class="field">
-                     <div class="label">
-                        Người Chơi 2
-                     </div>
-                     <input type="Number">
-                  </div>
-                  <div class="field btns">
-                     <button class="prev-1 prev">Previous</button>
-                     <button class="next-1 next">Next</button>
-                  </div>
-               </div>
-             </div> -->
+           <div class="col-md-6 BenPhai" style="background-color: #E09637;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
              <img src="assets/img/bg-img/logohexa.png" alt="" class="hinh-anh">
              <h1 class="solo-header">Solo Chiến Thuật </h1>
              <div class="player">
@@ -85,12 +61,19 @@ import { io } from "socket.io-client";
 import mang from '@/Test/test.js'
 import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
+import PopupWin from './PopupWin'
+import PopupLose from './PopupLose'
 
 export default {
-  components: { },
+  components: { 
+    PopupWin,
+    PopupLose
+   },
   name: 'Board',
   data() {
     return {
+      isPopupWin: false,
+      isPopupLose: false,
       isShow: true,
       mangi: 1,
       hinh: [
@@ -211,6 +194,36 @@ export default {
     });
   },
   methods: {
+    SocketOn(){
+      const This = this;
+      const Hinh = this.hinh;
+      this.socketInstance.on("socketClientSendDataQuanCoToServer", function (Data) {
+        console.log(
+          "Nhận nội dung từ máy khác: " + Data.x +  "-" + Data.y + " " + Data.user
+        );
+        if (Data.CoBiAn != -1) {
+          if (mang[Data.CoBiAn].id == "tuong") {
+            This.btnOpenPopupLose();
+            
+          }else{
+            if (mang[Data.CoBiAn].id == "tuong_do") {
+              This.btnOpenPopupLose();
+              
+            }else Hinh[Data.CoBiAn].hinh = null;
+          }
+        }
+        MaTran[Data.Yold][Data.Xold].id = "";
+        MaTran[Data.y][Data.x].id = mang[Data.quanCo].id;
+        Hinh[Data.quanCo].vitri = 'left: ' + Data.left + 'px; top: ' + Data.top + 'px';
+      });
+    },
+
+    btnOpenPopupWin(){
+      this.isPopupWin = true;
+    },
+    btnOpenPopupLose(){
+      this.isPopupLose = true;
+    },
     loadCo: function(){
       if (this.mangi < 32) {
           this.hinh.push({
@@ -279,10 +292,12 @@ export default {
           if (MaTran[y][x].id == mang[i].id) {
             if (loaico[1] != mang[i].loai) {
               if (mang[i].id == "tuong") {
-                alert("Bạn đã chiến thắng");
+                this.btnOpenPopupWin();
+                this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
               } else {
                 if (mang[i].id == "tuong_do") {
-                  alert("Bạn đã chiến thắng");
+                  this.btnOpenPopupWin();
+                  this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
                 }
                 else {
                   this.hinh[i].hinh = null;
@@ -390,15 +405,49 @@ export default {
 </script>
 
 <style scoped>
-  .test{
-    width: 94%;
-    position: absolute;
-    top: 18px;
-    left: 18px;
+.h-100{
+    margin-right: 2%;
+  }
+  @media (max-width: 1200px) {
+    .h-100{
+      width: 510px;
+    }
+    .BenPhai{
+      left: 55%;
+    }
+    .player p{
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    .container{
+      height: 20%;
+    }
+  }
+  @media (max-width: 800px) {
+    .h-100{
+      width: 510px;
+      margin-right: -0.1%
+    }
+    .text-white{
+      margin-left: -3.3%;
+    }
+    .BenPhai{
+      left: -1%;
+    }
+  }
+  .classLogout{
+    position: fixed;
+    top: 7%;
+    left: 40px;
+  }
+  .classLogout img{
+    width: 80px;
   }
   .main{
-    margin-bottom: 25px;
-    margin-top: 25px;
+    margin-bottom: 30px;
+    margin-top: 30px;
   }
   .hinh-anh{
     position: relative;
@@ -511,9 +560,5 @@ export default {
   background-color: yellow;
   font-size: 16px;
   font-weight: bold;
-}
-.card-img {
-  margin-top: -8px;
-  display: inline-block;
 }
 </style>

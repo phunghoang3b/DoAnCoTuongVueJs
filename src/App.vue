@@ -1,5 +1,5 @@
 <template>
-    <iframe name="iframe1" id="iframe1" src="assets/img/video/VanCoTuong.mp3" frameborder="0" border="0" cellspacing="0" style="border-style: none;width: 0; height: 0;"></iframe>
+    <!-- <iframe name="iframe1" id="iframe1" src="assets/img/video/VanCoTuong.mp3" frameborder="0" border="0" cellspacing="0" style="border-style: none;width: 0; height: 0;"></iframe> -->
    <!-- ##### Header Area Start ##### -->
   <header class="header_area">
     <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
@@ -31,6 +31,9 @@
                 <!-- Nav End -->
             </div>
         </nav>
+      <div class="LogoutAccount">
+        <a href="#" class="classImgLogout" @click="DangXuat" v-if="ShowLogout"><img src="https://i.imgur.com/QpR6DDl.png"></a>
+      </div>
     </div>
   </header>
   <!-- ##### Header Area End ##### -->
@@ -163,8 +166,20 @@ export default {
         password: '',
         email: ''
       },
+      ShowLogout: false
     };
   },
+  created() {
+    if (sessionStorage.getItem("key") != null) {
+      this.ShowLogout = true;
+    }
+  },
+  methods: {
+    DangXuat(){
+      sessionStorage.clear();
+      location.reload();
+    }
+  }
   // methods: {
   //   DangKy(e) {
   //     e.preventDefault();
@@ -196,5 +211,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.LogoutAccount img{
+   width: 46px;
+}
+.LogoutAccount{
+  position: relative;
+  right: 3%;
 }
 </style>

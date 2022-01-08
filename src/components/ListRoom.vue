@@ -17,6 +17,7 @@
         </div>
       </div>
   </div>
+  <div class="space" style="margin-bottom:663px"></div>
 </template>
 
 <script>
@@ -93,7 +94,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .list-Room{
     position: fixed;
     width: 1300px;
@@ -106,13 +107,14 @@ export default {
   }
   .container-listroom{
     height: 663px;
-    display: flex;
+    position: fixed;
+    width: 100%;
   }
   .container-listroom img{
-    position: absolute;
-    width: 35%;
-    height: 18%;
-    margin-left: 33%;
+    position: fixed;
+    width: 34%;
+    height: 17%;
+    left: 33%;
   }
   .search-container{
     position: fixed;
@@ -164,5 +166,26 @@ export default {
     top: 25%;
     left: 77.8%;
     font-weight: bold;
+}
+@media (max-width: 1000px){
+  .list-Room{
+    width: 850px;
+    right: 5.5%;
+    top: 17%;
+  }
+  .container-listroom img{
+    height: 15%;
+    width: 45%;
+    left: 29%;
+  }
+  .search-container{
+    top: 22%;
+    left: 5.5%;
+  }
+  .btn-create{
+    top: 22%;
+    left: 81.4%;
+    width: 13%;
+  }
 }
 </style>
