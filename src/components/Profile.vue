@@ -6,7 +6,8 @@
           <img src="assets/img/bg-img/backgoung.jpg"
           alt="user" width="100">
           <h4>{{info.username}}</h4>
-          <a href="/update"  class="update-btn">Cập nhật thông tin</a>
+          <a href="/updateinfo"  class="update-btn">Cập nhật thông tin</a>
+          <a href="/updatepassword"  class="update-btn">Đổi mật khẩu</a>
       </div>
       <div class="vl"></div>
       <div class="right">
@@ -72,11 +73,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 .title{
   color: #fff;
   position: relative;
-  top: 10%;
+  top: 7%;
   text-transform: uppercase;
 }
 .vl {
@@ -89,6 +91,7 @@ export default {
   height: 663px;
 }
 .update-btn{
+  width: 70%;
   display: inline-block;
   padding: 12px 50px;
   color: #fff;
