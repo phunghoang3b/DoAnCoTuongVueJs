@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="container-chat"
-    style="background-image: url(assets/img/bg-img/test.png); background-size: inherit;">
+  <div class="container-chat" style="background-image: url(assets/img/bg-img/test.png); background-size: inherit;">
     <h2>Cùng Hexa-Chess thỏa sức trò chuyện và bàn chiến thuật !</h2>
     <div class="body-chat">
       <!-- nơi chứa nội dung chat -->
@@ -135,35 +133,34 @@ export default {
 };
 </script>
 
-<style>
-    .container-chat{
-        height: 663px;
-        display: flex;
-    }
-    .container-chat h2{
-        position: absolute;
-        top: 13%;
-        left: 20%;
-        text-transform: uppercase;
-        color: #111;
-        font-family: cursive;
-        border-radius: 10px;
-        background-color: yellow;
-    }
-    .body-chat{
-        width: 1620px;
-        border-radius: 25px;
-        background-color: rgba(0,0,0,0.8);
-        box-shadow: 0 0 17px #333;
-        margin: 5% auto;
-        height: 512px;
-    }
-    
-    *{
-    margin:0;
-    padding:10;
-    box-sizing: border-box;
-    
+<style scoped>
+@media (max-width: 1000px){
+  .container-chat h2{
+    font-size: 15px;
+    right: 19%;
+  }
+}
+.container-chat{
+  height: 663px;
+  display: flex;
+}
+.container-chat h2{
+  position: absolute;
+  top: 13%;
+  left: 20%;
+  text-transform: uppercase;
+  color: #111;
+  font-family: cursive;
+  border-radius: 10px;
+  background-color: yellow;
+}
+.body-chat{
+  width: 1620px;
+  border-radius: 25px;
+  background-color: rgba(0,0,0,0.8);
+  box-shadow: 0 0 17px #333;
+  margin: 5% auto;
+  height: 512px;
 }
 
 * {

@@ -1,7 +1,7 @@
 <template>
    <main class="main" id="top">
      <div class="classLogout">
-       <a href="#"><img src="https://i.imgur.com/bRHR6bO.png" alt=""></a>
+       <a href="/room"><img src="https://i.imgur.com/bRHR6bO.png" alt=""></a>
      </div>
      <section>
        <div class="container">
