@@ -6,7 +6,12 @@
           <img src="assets/img/bg-img/backgoung.jpg"
           alt="user" width="100">
           <h4>{{info.username}}</h4>
-          <a href="/update"  class="update-btn">Cập nhật thông tin</a>
+          <template v-if="isUpdate">
+            <button @click="Update" class="update-btn">Cập nhật</button>
+            <button @click="Cancel" class="update-btn">Hủy</button>
+          </template>
+          <button v-else @click="UpdateInfo" class="update-btn">Cập nhật thông tin</button>
+          <!-- <a href="/update"  class="update-btn">Cập nhật thông tin</a> -->
       </div>
       <div class="vl"></div>
       <div class="right">
@@ -15,13 +20,14 @@
               <div class="info_data">
                   <div class="data">
                       <h4>Email</h4>
-                      <p>{{info.email}}</p>
+                      <input v-if="isUpdate" type="text" v-model="info.email"/>
+                      <p v-else>{{info.email}}</p>
                   </div>
                   <div class="data">
                     <h4>Họ và tên</h4>
-                      <p>{{info.fullname}}</p>
+                    <input v-if="isUpdate" type="text" v-model="info.fullname"/>
+                    <p v-else>{{info.fullname}}</p>
                     </div>
-
               </div>
           </div>
         <div class="projects">
@@ -29,11 +35,13 @@
               <div class="projects_data">
                 <div class="data">
                   <h4>Số trận thắng</h4>
-                  <p>{{info.win}}</p>
+                  <input v-if="isUpdate" type="text" v-model="info.win"/>
+                  <p v-else>{{info.win}}</p>
                 </div>
                 <div class="data">
                   <h4>Số trận thua</h4>
-                  <p>{{info.lose}}</p>
+                  <input v-if="isUpdate" type="text" v-model="info.lose"/>
+                  <p v-else>{{info.lose}}</p>
                 </div>
               </div>
           </div>
@@ -44,30 +52,54 @@
 
 <script>
 import axios from 'axios';
+const KhoaId = sessionStorage.getItem("key");
 export default {
     name: 'Profile',
     data() {
     return {
-      info:""
+      info:'',
+      isUpdate: false
     };
   },
   created (){
-    const KhoaId = sessionStorage.getItem("key");
-    const This = this;
-    console.log(KhoaId)
-    axios
+    this.LoadInfo();
+  },
+  methods: {
+    async LoadInfo(){
+      const This = this;
+      await axios
         .post("hexachess/infomation.php", {
           id: KhoaId
         })
         .then(function (response) {
           This.info = response.data[0]
-          console.log(This.info)
         })
         .catch(function (error) {
           console.log(error);
         });
-  },
-  methods: {
+    },
+    //chuyển qua trạng thái cập nhật
+    UpdateInfo(){
+      this.isUpdate = true;
+    },
+    //Cập nhật thông tin
+    async Update(){
+      const This = this;
+      this.isUpdate = false;
+      const response = await axios.post("hexachess/updateinfo.php",{
+        id: KhoaId,
+        hoten: This.info.fullname,
+        email: This.info.email
+      })
+      if (response.data == "Cập nhật thành công") {
+        alert("Cập nhật thành công");
+        this.LoadInfo();
+      }else alert(response.data)      
+    },
+    //Huỷ Update
+    Cancel(){
+      this.isUpdate = false;
+    }
   },
 }
 </script>
