@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
                 <label>Mật khẩu mới</label>
-                <input type="password" class="form-control form-control-lg" placeholder="Nhập mật khẩu cũ ..."
+                <input type="password" class="form-control form-control-lg" placeholder="Nhập mật khẩu mới ..."
                 v-model="info.passwordnew"
                 />
             </div>
@@ -62,7 +62,7 @@ export default {
           if (response.data == 'Cập nhật thành công') {
             console.log(response.data)
             alert('Cập nhật thành công')
-            // window.location.href = "http://localhost:8080/profile"
+            window.location.href = "http://localhost:8080/profile"
           }else alert(response.data)
           
         })
