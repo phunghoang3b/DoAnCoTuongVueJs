@@ -210,11 +210,13 @@
   <!-- ##### New Arrivals Area End ##### -->
 
   <!-- ##### Brands Area Start ##### -->
+
   <div class="brands-area d-flex align-items-center justify-content-between" style="margin-top: -45px">
     <div class="hinh-anh">
         <img src="assets/img/bg-img/logokyvuong.png" style="width: 24%;position: relative;margin-left: 160%;"/>
     </div>
   </div>
+
   <!-- ##### Brands Area End ##### -->
 </template>
 

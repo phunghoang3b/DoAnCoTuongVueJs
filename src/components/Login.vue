@@ -78,9 +78,18 @@ export default {
       var idName = varArray[0].value;
       var idPass = varArray[1].value;
       e.preventDefault();
-      if(idName == "" || idPass == ""){
-        alert("Tên đăng nhập hoặc mật khẩu không được để trống");
-        return;
+      const response = await axios.post("hexachess/login.php", {
+        taikhoan: this.account.username,
+        matkhau: this.account.password,
+      });
+      if (response.data == "Sai Mật Khẩu") {
+        console.log(response.data);
+      } else if (response.data == "Tài khoản không tồn tại") {
+        console.log(response.data);
+      } else {
+        sessionStorage.setItem('key', response.data);
+      
+        window.location.href = "http://localhost:8080/";
       }
       axios
         .post("hexachess/login.php", {

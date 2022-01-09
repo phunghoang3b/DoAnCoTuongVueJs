@@ -12,7 +12,7 @@
         <div class="list-Room">
           <div class="" v-for="data in DataRoom" :key="data">
             <!-- nơi chứa danh sách phòng -->
-            <a href="#" style="fontSize:20px;">{{ data.RoomName }}</a>
+            <a href="#" style="fontSize:20px;" @click="ClickJoinRoom(data.RoomName)">{{ data.RoomName }}</a>
           </div>
         </div>
       </div>
@@ -30,14 +30,20 @@ export default {
       max: 9999,
       isGetRoom: true,
       DataRoom: [],
-      strRoomName: "xin chào"
+      strRoomName: "xin chào",
+      strUsername: ""
     }
   },
 
   created(){ // Khởi tạo socket kết nối tới server
+
     this.socketInstance = io("http://localhost:3000/");
     this.socketInstance.emit("socketClientSendRequestListRoom", this.isGetRoom);
     this.LoadRoom();
+    
+    this.strUsername = sessionStorage.getItem("key"); // Tạo biến để chứa tên tài khoản
+    console.log("Tài khoản hiện đang đăng nhập vào trang: "+ this.strUsername);
+    // this.socketInstance.emit("socketClientSendUsername", this.strUsername);
   },
 
   methods: {
@@ -59,17 +65,25 @@ export default {
       });
     },
     ClickCreateNewRoom(){
-      var vHostName = "Temp";
-      this.socketInstance.emit("socketClientCreateNewRoom", vHostName); // Gửi dữ liệu tên chủ phòng từ client đến server
+      
+      this.socketInstance.emit("socketClientCreateNewRoom", this.strUsername); // Gửi dữ liệu tên chủ phòng từ client đến server
 
       this.socketInstance.on("socketServerSendChangePageToBoard", function (DataServerSend) {
-        if(DataServerSend.isCheckChange){
+        if(DataServerSend.isCheckChange){ 
           alert("Bạn tạo phòng thành công với tên: " + DataServerSend.NewRoomName);
           // this.$router.push('/board'); //Phần chuyển trang này chưa làm được
 
+          window.location.href = "http://localhost:8080/board";
           //Còn chưa xử lý xuất ra danh sách phòng từ CSDL
+          sessionStorage.setItem("roomNameCreatedHost", DataServerSend.NewRoomName); // Gán tên cho chủ phòng
         }
       })
+    },
+
+    ClickJoinRoom(roomName){
+      sessionStorage.setItem("roomNameGuestJoin", roomName); //Lấy tên phòng khi người chơi 
+      sessionStorage.setItem("GuestJoinRoom", sessionStorage.getItem("key"))
+      window.location.href = "http://localhost:8080/board";
     },
 
     //Random

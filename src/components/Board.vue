@@ -24,11 +24,13 @@
              <h1 class="solo-header">Solo Chiến Thuật </h1>
              <div class="player">
                <div class="col-md-12">
-                 <div class="col-md-6" id="member1">Người Chơi 1
-                   <p>Nguyễn Hoàng Khải</p>
-                 </div>
-                 <div class="col-md-6" id="member2">Người Chơi 2
-                   <p>Phạm Duy Luân</p>
+                 <div v-for="data in DataInfoPlayer" :key="data">
+                  <div class="col-md-6" id="member1">Người Chơi 1
+                    <p>{{data.host}}</p>
+                  </div>
+                  <div class="col-md-6" id="member2" >Người Chơi 2
+                    <p>{{data.guest}}</p>
+                  </div>
                  </div>
                </div>
              </div>
@@ -39,9 +41,11 @@
              </div>
              <div class="chat-game">
                <h3>Chat Vui Nào !</h3>
-               <input type="text" style="display:inline-block">&nbsp;
-               <button>Gửi</button>
-               <textarea name="" id="" cols="65" rows="5" style="border-radius:10px;width:90%"></textarea>
+               <input type="text" style="display:inline-block" v-model="message">&nbsp;
+               <button @click="ClickSendDataChatToRoom">Gửi</button>
+               <div style="background-color:white;" v-for="data in DataChat" :key="data">
+                    {{data.chat}}
+                    </div>
              </div>
              <p style="color: yellow;font-size: 20px;">----======{(-_-)}======----</p>
            </div>
@@ -93,12 +97,101 @@ export default {
           y: null
         }
       ],
-      DataQuanCo: []
+      DataQuanCo: [],
+
+      //Hiển thị thông tin người chơi
+      strHost: "", // Người chơi 1
+      strGuest: "", // Người chơi 2
+      isCheckInforPlayer: true,
+      DataInfoPlayer: [],
+
+      //Chat
+      messageChat: "",
+      messageChatShow: "",
+      DataChat: []
+
+    }
+  },
+  computed: {
+    message: {
+      get(){
+        return this.messageChat
+      },
+      set(value){
+        this.messageChat = value
+      }
+    },
+    chatMsg: {
+      get(){
+        return this.messageChatShow
+      },
+      set(value){
+        this.messageChatShow = value
+      }
     }
   },
   created() {
     this.socketInstance = io("http://localhost:3000/");
-    this.SocketOn();
+    //const push = this.DataQuanCo;
+
+    const roomNameOfHost = sessionStorage.getItem("roomNameCreatedHost");
+    const DataGuestJoinRom = 
+      {
+        GuestIdInDb: sessionStorage.getItem("GuestJoinRoom"),
+        RoomName: sessionStorage.getItem("roomNameGuestJoin"),
+      }
+    
+    if(roomNameOfHost != null){
+      //Vào phòng và chỉnh sửa thông tin hiển thị người chơi
+      this.socketInstance.emit("socketClientHostSendRequestInformationPlayer", roomNameOfHost); //Gửi tên phòng
+      this.ChangeInfoPlayer();
+    }else if(DataGuestJoinRom.GuestIdInDb != null){
+      this.socketInstance.emit("socketClientGuestSendDataWhenJoinRoom", DataGuestJoinRom);
+    }
+  
+    this.ChangeInfoPlayerAll();
+
+    //Nhận dữ liệu chat từ trong phòng
+    this.GetDataChatRoom();
+
+    //gửi dữ liệu phòng
+    if(roomNameOfHost != null){
+      //Vào phòng và chỉnh sửa thông tin hiển thị người chơi
+      this.socketInstance.emit("socketSendRoomName", roomNameOfHost);
+    }else if(DataGuestJoinRom.GuestIdInDb != null){
+      this.socketInstance.emit("socketSendRoomName", DataGuestJoinRom.RoomName);
+    }
+
+
+    const Hinh = this.hinh;
+    this.socketInstance.on("socketClientSendDataQuanCoToServer", function (Data) {
+      console.log(
+        "Nhận nội dung từ máy khác: " + Data.x +  "-" + Data.y + " " + Data.user
+      );
+      if (Data.CoBiAn != -1) {
+        if (mang[Data.CoBiAn].id == "tuong") {
+          alert("Bạn đã thua");
+        }else{
+          if (mang[Data.CoBiAn].id == "tuong_do") {
+            alert("Bạn đã thua");
+          }else Hinh[Data.CoBiAn].hinh = null;
+        }
+      }
+      MaTran[Data.Yold][Data.Xold].id = "";
+      MaTran[Data.y][Data.x].id = mang[Data.quanCo].id;
+      Hinh[Data.quanCo].vitri = 'left: ' + Data.left + 'px; top: ' + Data.top + 'px';
+
+      // push.user = Data.user;
+      // push.x = Data.x;
+      // push.y = Data.y;
+      // push.quanCo = Data.quanCo;
+      // // push.splice(0); //Xóa dữ liệu nước đi cũ
+      // // push.push({
+      // //   user: Data.user,
+      // //   x: Data.x,
+      // //   y: Data.y
+      // // });
+    });
   },
   methods: {
     SocketOn(){
@@ -242,7 +335,71 @@ export default {
         DataChess
       );
       console.log('Truyền dữ liệu nước đi');
-    }
+    },
+    ChangeInfoPlayer: function (){ //Lấy tên khi host tạo phòng
+      const push = this.DataInfoPlayer;
+
+      this.socketInstance.on("socketServerSendRequestInformationPlayer", function(data){ // Nhận tên phòng
+        push.push({
+          host: data[0].host,
+          guest: data[0].guest,
+        });
+        sessionStorage.setItem(("Host"), data[0].host)
+        sessionStorage.setItem(("Guest"), data[0].guest)
+      }) 
+    },
+    ChangeInfoPlayerAll: function (){ //Đổi thông tin cả Host và Guest
+      const push = this.DataInfoPlayer;
+      this.socketInstance.on("IoSendDataInfoPlayer", function(data){ // Nhận tên phòng
+        push.push({
+          host: data[0].host,
+          guest: data[0].guest
+        });
+        sessionStorage.setItem(("Host"), data[0].host)
+        sessionStorage.setItem(("Guest"), data[0].guest)
+      })
+    },
+
+    //Chức năng chat trong phòng
+    ClickSendDataChatToRoom: function(){
+      var RoomNameFinal = "";
+
+      if(sessionStorage.getItem("roomNameCreatedHost") != null)
+        RoomNameFinal = sessionStorage.getItem("roomNameCreatedHost")
+      else if(sessionStorage.getItem("roomNameGuestJoin") != null)
+        RoomNameFinal = sessionStorage.getItem("roomNameGuestJoin")
+      const DataChatRoom = {
+        RoomNameHost : RoomNameFinal,
+        MessageChat : this.message,
+      }
+      this.socketInstance.emit("socketSendChatToServer", DataChatRoom)
+
+      //Xử lý ai là người Gửi
+      if(sessionStorage.getItem("GuestJoinRoom") == null) //Host
+      {
+        const push = this.DataChat;
+
+        push.push({
+          chat: sessionStorage.getItem("Host") + ": " + this.message
+        });
+      }else{
+        const push = this.DataChat;
+
+        push.push({
+          chat: sessionStorage.getItem("Guest") + ": " + this.message
+        });
+      }
+    },
+
+    GetDataChatRoom: function(){
+      const push = this.DataChat;
+      this.socketInstance.on("socketServerSendChatToRoom", function(data){
+
+        push.push({
+          chat: "Khách: " + data
+        });
+      })
+    },
   }
 }
 </script>
