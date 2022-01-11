@@ -340,6 +340,9 @@ export default {
       const push = this.DataInfoPlayer;
 
       this.socketInstance.on("socketServerSendRequestInformationPlayer", function(data){ // Nhận tên phòng
+
+      push.splice(0);
+
         push.push({
           host: data[0].host,
           guest: data[0].guest,
@@ -351,6 +354,9 @@ export default {
     ChangeInfoPlayerAll: function (){ //Đổi thông tin cả Host và Guest
       const push = this.DataInfoPlayer;
       this.socketInstance.on("IoSendDataInfoPlayer", function(data){ // Nhận tên phòng
+
+      push.splice(0);
+
         push.push({
           host: data[0].host,
           guest: data[0].guest
