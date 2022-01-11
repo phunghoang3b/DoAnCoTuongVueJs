@@ -93,6 +93,9 @@ export default {
             window.location.href = "http://localhost:8080/login";
             alert('Đăng ký thành công');
           }
+          else{
+            alert(response.data);
+          }
         })
         .catch(function (error) {
           console.log(error);

@@ -13,7 +13,7 @@
                 PHÒNG CỜ
             </a>
             <a v-else href="/login" class="btn essence-btn" style="border-radius: 10px">
-                PHÒNG CỜ
+                CHIẾN
             </a>
           </div>
         </div>

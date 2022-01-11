@@ -2,12 +2,6 @@
   <div class="container-listroom" style="background-image:url(assets/img/bg-img/backgoung.jpg);background-size:cover;">
       <img src="assets/img/bg-img/DANHSACHPHONG.png" alt="">
       <div class="function-btn">
-        <div class="search-container">
-          <input type="text" name="search" placeholder="Tìm kiếm..." class="search-input">
-          <a href="#" class="search-btn" style="color:black">
-            O   
-          </a>
-        </div>
         <button class="btn-create" @click="ClickCreateNewRoom">Tạo bàn mới</button>
         <div class="list-Room">
           <div class="" v-for="data in DataRoom" :key="data">
@@ -116,45 +110,6 @@ export default {
     height: 17%;
     left: 33%;
   }
-  .search-container{
-    position: fixed;
-    top: 25%;
-    left: 16.2%;
-    background: #fff;
-    height: 30px;
-    border-radius: 30px;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: 0.8s;
-    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
-              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
-}
-.search-container:hover > .search-input{
-    width: 400px;
-}
-.search-container .search-input{
-  background: transparent;
-  border: none;
-  outline:none;
-  width: 0px;
-  font-weight: 500;
-  font-size: 16px;
-  transition: 0.8s;
-}
-@keyframes hoverShake {
-  0% {transform: skew(0deg,0deg);}
-  25% {transform: skew(5deg, 5deg);}
-  75% {transform: skew(-5deg, -5deg);}
-  100% {transform: skew(0deg,0deg);}
-}
-.search-container:hover{
-  animation: hoverShake 0.15s linear 3;
-}
 .btn-create{
     position: fixed;
     width: 6%;

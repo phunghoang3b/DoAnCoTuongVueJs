@@ -446,8 +446,8 @@ export default {
     width: 80px;
   }
   .main{
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 59px;
+    margin-top: 34px;
   }
   .hinh-anh{
     position: relative;
