@@ -25,12 +25,33 @@
              <div class="player">
                <div class="col-md-12">
                  <div v-for="data in DataInfoPlayer" :key="data">
-                  <div class="col-md-6" id="member1">Người Chơi 1
-                    <p>{{data.host}}</p>
-                  </div>
-                  <div class="col-md-6" id="member2" >Người Chơi 2
-                    <p>{{data.guest}}</p>
-                  </div>
+                   <template v-if="isHost">
+                      <div class="col-md-6" id="member1">Người Chơi 1
+                        <p v-if="isLuocDiChuyen">{{data.host}}</p>
+                        <p v-else>{{data.host}}</p>
+                      </div>
+                      <div class="col-md-6" id="member2" >Người Chơi 2
+                        <div class="testmau">
+                                                  <p v-if="!isLuocDiChuyen" >{{data.guest}}</p>
+                        <p v-else >{{data.guest}}</p>
+                        </div>
+
+                      </div>
+                   </template>
+                   <template v-else>
+                      <div class="col-md-6" id="member1">Người Chơi 1                        
+                        <p v-if="!isLuocDiChuyen">{{data.host}}</p>
+                        <p v-else>{{data.host}}</p>
+                      </div>
+                      <div class="col-md-6" id="member2" >Người Chơi 2
+                        <div class="testmau">
+                                                  <p v-if="isLuocDiChuyen" >{{data.guest}}</p>
+                        <p v-else >{{data.guest}}</p>
+                        </div>
+
+                      </div>
+                   </template>
+                  
                  </div>
                </div>
              </div>
@@ -63,7 +84,7 @@ import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
 import PopupWin from './PopupWin'
 import PopupLose from './PopupLose'
-
+const guest = sessionStorage.getItem("GuestJoinRoom");
 export default {
   components: { 
     PopupWin,
@@ -72,6 +93,8 @@ export default {
   name: 'Board',
   data() {
     return {
+      isHost: false,
+      isLuocDiChuyen: false,
       isPopupWin: false,
       isPopupLose: false,
       isShow: true,
@@ -132,7 +155,6 @@ export default {
   },
   created() {
     this.socketInstance = io("http://localhost:3000/");
-    //const push = this.DataQuanCo;
 
     const roomNameOfHost = sessionStorage.getItem("roomNameCreatedHost");
     const DataGuestJoinRom = 
@@ -161,42 +183,20 @@ export default {
     }else if(DataGuestJoinRom.GuestIdInDb != null){
       this.socketInstance.emit("socketSendRoomName", DataGuestJoinRom.RoomName);
     }
-
-
-    const Hinh = this.hinh;
-    this.socketInstance.on("socketClientSendDataQuanCoToServer", function (Data) {
-      console.log(
-        "Nhận nội dung từ máy khác: " + Data.x +  "-" + Data.y + " " + Data.user
-      );
-      if (Data.CoBiAn != -1) {
-        if (mang[Data.CoBiAn].id == "tuong") {
-          alert("Bạn đã thua");
-        }else{
-          if (mang[Data.CoBiAn].id == "tuong_do") {
-            alert("Bạn đã thua");
-          }else Hinh[Data.CoBiAn].hinh = null;
-        }
-      }
-      MaTran[Data.Yold][Data.Xold].id = "";
-      MaTran[Data.y][Data.x].id = mang[Data.quanCo].id;
-      Hinh[Data.quanCo].vitri = 'left: ' + Data.left + 'px; top: ' + Data.top + 'px';
-
-      // push.user = Data.user;
-      // push.x = Data.x;
-      // push.y = Data.y;
-      // push.quanCo = Data.quanCo;
-      // // push.splice(0); //Xóa dữ liệu nước đi cũ
-      // // push.push({
-      // //   user: Data.user,
-      // //   x: Data.x,
-      // //   y: Data.y
-      // // });
-    });
+    //Kiểm tra host được di chuyển trước
+    if(guest == null) //Host
+    {
+      this.isLuocDiChuyen = true;
+      this.isHost = true;
+    }
+    console.log(this.isLuocDiChuyen);
+    this.SocketOn();
   },
   methods: {
     SocketOn(){
       const This = this;
       const Hinh = this.hinh;
+      
       this.socketInstance.on("socketClientSendDataQuanCoToServer", function (Data) {
         console.log(
           "Nhận nội dung từ máy khác: " + Data.x +  "-" + Data.y + " " + Data.user
@@ -215,6 +215,7 @@ export default {
         MaTran[Data.Yold][Data.Xold].id = "";
         MaTran[Data.y][Data.x].id = mang[Data.quanCo].id;
         Hinh[Data.quanCo].vitri = 'left: ' + Data.left + 'px; top: ' + Data.top + 'px';
+        This.isLuocDiChuyen = true;
       });
     },
 
@@ -236,7 +237,21 @@ export default {
       }
     },
     clickCo: function(src){
+      if (!this.isLuocDiChuyen) {
+        return;
+      }
+      //Lấy tên quân cờ và loại quân cờ đã chọn
       const loaico = src.class.split(" ");
+      if (guest == null) {
+        if (loaico[1] != "Do") {
+          return;
+        }
+      }else{
+        if (loaico[1] != "Den") {
+          return;
+        }
+      }
+      
       var x,y;
       for (let i = 0; i <= 9; i++) {
         for (let j = 0; j <= 8; j++) {
@@ -265,6 +280,7 @@ export default {
       }
     },
     clickDiChuyen: function(src){
+      this.isLuocDiChuyen = false;
       const loaico = src.quanco.class.split(" ");
       const ConCoHienTai = src.quanco.i;
       const left = src.left;
@@ -293,18 +309,16 @@ export default {
             if (loaico[1] != mang[i].loai) {
               if (mang[i].id == "tuong") {
                 this.btnOpenPopupWin();
-                this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
               } else {
                 if (mang[i].id == "tuong_do") {
                   this.btnOpenPopupWin();
-                  this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
                 }
                 else {
                   this.hinh[i].hinh = null;
                   MaTran[y][x].id = mang[ConCoHienTai].id;
-                  this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
                 }
               }
+              this.SendData(ConCoHienTai, x, y, vXold, vYold, left, top, i);
             }
           }
         }
@@ -329,7 +343,7 @@ export default {
         CoBiAn: dataCoBiAn
       };
 
-      //Gửi dữ liệu từ client sang server
+      //Gửi dữ liệu nước đi từ client sang server
       this.socketInstance.emit(
         "socketClientSendDataQuanCoToServer",
         DataChess
@@ -351,6 +365,7 @@ export default {
     ChangeInfoPlayerAll: function (){ //Đổi thông tin cả Host và Guest
       const push = this.DataInfoPlayer;
       this.socketInstance.on("IoSendDataInfoPlayer", function(data){ // Nhận tên phòng
+        push.splice(0);
         push.push({
           host: data[0].host,
           guest: data[0].guest
@@ -446,8 +461,8 @@ export default {
     width: 80px;
   }
   .main{
-    margin-bottom: 59px;
-    margin-top: 34px;
+    margin-bottom: 46px;
+    margin-top: 46px;
   }
   .hinh-anh{
     position: relative;
@@ -465,14 +480,24 @@ export default {
     top: 6%;
   }
   .player p{
-    background-color: white;
+    background-color: chocolate;
     height: 50px;
     border-radius: 10px;
     padding: 12px;
     margin-top: 12px;
     font-size: 16px;
     font-weight: bold;
-    color: black;
+    color: #fff;
+  }
+  .testmau p{
+    background-color: #30598C;
+    height: 50px;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
   }
   #member1, #member2{
     font-size: 18px;

@@ -73,33 +73,27 @@ export default {
     };
   },
   methods: {
-    DangNhap(e) {
-      var varArray = document.getElementsByTagName('input');
-      var idName = varArray[0].value;
-      var idPass = varArray[1].value;
-      e.preventDefault();
-      if(idName == "" || idPass == ""){
-        alert("Tên đăng nhập hoặc mật khẩu không được để trống");
+    async DangNhap() {
+      const TaiKhoan = this.account.username;
+      const MatKhau = this.account.password;
+
+      if(TaiKhoan == "" || MatKhau==""){
+      alert('Bạn cần điền đầy đủ tài khoản và mật khẩu')
         return;
       }
-      axios
-        .post("hexachess/login.php", {
-          taikhoan: this.account.username,
-          matkhau: this.account.password
-        })
-        .then(function (response) {
-          if (response.data == 'Sai Mật Khẩu') {
-            alert("Bạn nhập sai mật khẩu");
-          }else if (response.data == 'Tài khoản không tồn tại') {
-            alert("Tài khoản của bạn không tồn tại");
-          }else{
-            sessionStorage.setItem('key', response.data);
-            window.location.href="http://localhost:8080/"
-          }        
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      const response = await axios.post("hexachess/login.php", {
+        taikhoan: TaiKhoan,
+        matkhau: MatKhau,
+      });
+      if (response.data == "Sai Mật Khẩu") {
+        alert("Bạn nhập sai mật khẩu");
+      } else if (response.data == "Tài khoản không tồn tại") {
+        alert("Tài khoản của bạn không tồn tại");
+      } else {
+        sessionStorage.setItem('key', response.data);
+        sessionStorage.setItem('username', TaiKhoan);
+        window.location.href="http://localhost:8080/";
+      }
     },
   },
 };

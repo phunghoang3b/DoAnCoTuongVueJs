@@ -18,20 +18,19 @@
               <div class="chat-section">
                 <div class="main-wrapper">
                   <div class="chat-content">
-                    <div ref="refMessageBoardChat" v-for="data in MsgInBoard" :key="data.id">
-                      <b>
-                        {{ data.user }}
-                      </b>
-                      : {{ data.text }}
-                    </div>
-                    <div>
-                      {{ dataChat }}
-                    </div>
                     <div v-for="data in DataChat" :key="data">
-                      <b>
+                     <template v-if="data.isLink">
+                        <b>
                         {{ data.user }}
-                      </b>
-                      : {{ data.text }}
+                        </b>
+                        : <a href="#" @click="ClickJoinRoom(data.text)" style="color: orange;font-size: 14px;font-family: cursive;">{{ data.text }}</a>
+                      </template>
+                      <template v-else>
+                        <b>
+                        {{ data.user }}
+                        </b>
+                        : {{ data.text }}
+                      </template>
                     </div>
                   </div>
                   <!--  -->
@@ -47,7 +46,7 @@
                     <button @click="btnClickSendMsg" id="btn-send">
                       <i class="glyphicon">Send</i>
                     </button>&nbsp;
-                    <a href="">Mời</a>
+                    <a href="" @click="btnClickInviteMsg">Mời</a>
                   </form>
                 </div>
               </div>
@@ -70,12 +69,17 @@ export default {
       MsgInBoard: [],
       DataChat: [],
       dataChat: "",
+      strUsername: "",
+      username: "",
+      
     };
   },
 
   created() {
     this.socketInstance = io("http://localhost:3000/");
     this.LoadMessage();
+    this.strUsername = sessionStorage.getItem("key");
+    this.username = sessionStorage.getItem("username");
   },
 
   methods: {
@@ -86,9 +90,11 @@ export default {
         console.log(
           "Nhận nội dung từ máy khác: " + Data.text + " " + Data.user
         );
+
         push.push({
           user: Data.user,
           text: Data.text,
+          isLink: Data.link,
         });
       });
     },
@@ -106,7 +112,7 @@ export default {
         // Tạo dữ liệu để gửi sang server
         id: new Date().getTime(),
         text: this.$refs.msgField.value,
-        user: "Temp",
+        user: this.username,
       };
 
       //Gửi dữ liệu từ client sang server
@@ -125,9 +131,36 @@ export default {
     AddMessage() {
       //Tạo phương thức nối nội dung
       this.DataChat.push({
-        user: "Temp",
+        user: this.username,
         text: this.$refs.msgField.value,
       });
+    },
+
+    btnClickInviteMsg(e){
+      e.preventDefault();
+      this.ClickCreateNewRoom();
+
+    },
+
+    ClickCreateNewRoom(){
+      this.socketInstance.emit("socketClientCreateNewRoom", this.strUsername); // Gửi dữ liệu tên chủ phòng từ client đến server
+
+      this.socketInstance.on("socketServerSendChangePageToBoard", function (DataServerSend) {
+        if(DataServerSend.isCheckChange){ 
+          alert("Bạn tạo phòng thành công với tên: " + DataServerSend.NewRoomName);
+          // this.$router.push('/board'); //Phần chuyển trang này chưa làm được
+
+          window.location.href = "http://localhost:8080/board";
+          //Còn chưa xử lý xuất ra danh sách phòng từ CSDL
+          sessionStorage.setItem("roomNameCreatedHost", DataServerSend.NewRoomName); // Gán tên cho chủ phòng
+        }
+      })
+    },
+    ClickJoinRoom(roomName){
+      alert(roomName);
+      sessionStorage.setItem("roomNameGuestJoin", roomName); //Lấy tên phòng khi người chơi 
+      sessionStorage.setItem("GuestJoinRoom", sessionStorage.getItem("key"))
+      window.location.href = "http://localhost:8080/board";
     },
   },
 };
