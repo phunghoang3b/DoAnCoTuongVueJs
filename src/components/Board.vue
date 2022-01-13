@@ -354,6 +354,9 @@ export default {
       const push = this.DataInfoPlayer;
 
       this.socketInstance.on("socketServerSendRequestInformationPlayer", function(data){ // Nhận tên phòng
+
+      push.splice(0);
+
         push.push({
           host: data[0].host,
           guest: data[0].guest,
