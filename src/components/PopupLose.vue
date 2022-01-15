@@ -3,7 +3,7 @@
         <div class="popupinner">
             <slot/>
             <button @click="btnClosePopup" class="btnRestart">
-                THOÁT PHÒNG
+                THOÁT
             </button>
         </div>
     </div>

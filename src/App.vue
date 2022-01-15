@@ -179,6 +179,7 @@ export default {
     DangXuat(){
       sessionStorage.clear();
       location.reload();
+      window.location.href="http://localhost:8080";
     }
   }
   // methods: {

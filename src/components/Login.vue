@@ -37,19 +37,6 @@
         <label class="lbl-reg"
           >Bạn chưa có tài khoản ? &nbsp;<a href="/register">Đăng Ký</a></label
         >
-        <div class="social-icons">
-          <ul>
-            <li>
-              <a href="#"><i class="fa fa-google"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-facebook"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-            </li>
-          </ul>
-        </div>
       </div>
     </form>
     <div v-for="row in info" v-bind:key="row.id">
