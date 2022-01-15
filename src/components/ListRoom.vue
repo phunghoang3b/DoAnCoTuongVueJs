@@ -33,11 +33,15 @@ export default {
 
     this.socketInstance = io("http://localhost:3000/");
     this.socketInstance.emit("socketClientSendRequestListRoom", this.isGetRoom);
+    this.LoadNewRoom(); //Nhận dữ liệu phòng người chơi khác tạo
+    // this.LoadDeleteRoom();//Nhận dữ liệu phòng đã bị xóa
     this.LoadRoom();
+    
     
     this.strUsername = sessionStorage.getItem("key"); // Tạo biến để chứa tên tài khoản
     console.log("Tài khoản hiện đang đăng nhập vào trang: "+ this.strUsername);
     // this.socketInstance.emit("socketClientSendUsername", this.strUsername);
+    this.ShowLeaveRoom();
   },
 
   methods: {
@@ -58,6 +62,29 @@ export default {
         }
       });
     },
+    LoadNewRoom: function () {
+      const push = this.DataRoom;
+      this.socketInstance.on("socketServerSendNewRoom", function (Data) {
+        push.push({
+          RoomName: Data,
+        });
+      });
+    },
+    // LoadDeleteRoom: function () {
+    //   const push = this.DataRoom;
+    //   this.socketInstance.on("socketServerSendDisconnect", function (Data) {
+    //     console.log(Data);
+    //     console.log(push);
+    //     for(let i=0; i<push.length; i++)
+    //     {
+    //       console.log(push[i].RoomName);
+    //       if (push[i].RoomName == Data) {
+    //         push.splice(i,1);
+    //         //console.log(push[i].RoomName);
+    //       }
+    //     }
+    //   });
+    // },
     ClickCreateNewRoom(){
       
       this.socketInstance.emit("socketClientCreateNewRoom", this.strUsername); // Gửi dữ liệu tên chủ phòng từ client đến server
@@ -78,11 +105,19 @@ export default {
       sessionStorage.setItem("roomNameGuestJoin", roomName); //Lấy tên phòng khi người chơi 
       sessionStorage.setItem("GuestJoinRoom", sessionStorage.getItem("key"))
       window.location.href = "http://localhost:8080/board";
+      sessionStorage.setItem("FirstJoinRoom", true)
     },
 
     //Random
     GenerateNumber: function () {
       return Math.floor(Math.random()*(this.max-this.min+1)+this.min);
+    },
+
+    ShowLeaveRoom:function () {
+      if(sessionStorage.getItem("LeaveRoom")){
+        alert("Đối phương đã rời phòng");
+        sessionStorage.setItem("LeaveRoom", "")
+      }
     }
   }
 }

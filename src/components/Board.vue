@@ -1,7 +1,7 @@
 <template>
    <main class="main" id="top">
      <div class="classLogout">
-       <a href="/room"><img src="https://i.imgur.com/bRHR6bO.png" alt=""></a>
+       <a href="/room" @click="ClickSendOutRoom"><img src="https://i.imgur.com/bRHR6bO.png" alt=""></a>
      </div>
      <section>
        <div class="container">
@@ -81,6 +81,7 @@
 <script>
 //Import thư viện server
 import { io } from "socket.io-client";
+import axios from 'axios'
 import mang from '@/Test/test.js'
 import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
@@ -172,7 +173,8 @@ export default {
     }else if(DataGuestJoinRom.GuestIdInDb != null){
       this.socketInstance.emit("socketClientGuestSendDataWhenJoinRoom", DataGuestJoinRom);
     }
-  
+
+
     this.ChangeInfoPlayerAll();
 
     //Nhận dữ liệu chat từ trong phòng
@@ -193,6 +195,9 @@ export default {
     }
     console.log(this.isLuocDiChuyen);
     this.SocketOn();
+
+
+
   },
   methods: {
     SocketOn(){
@@ -206,11 +211,11 @@ export default {
         if (Data.CoBiAn != -1) {
           if (mang[Data.CoBiAn].id == "tuong") {
             This.btnOpenPopupLose();
-            
+            This.UpdateWinLose(0);
           }else{
             if (mang[Data.CoBiAn].id == "tuong_do") {
               This.btnOpenPopupLose();
-              
+              This.UpdateWinLose(0);
             }else Hinh[Data.CoBiAn].hinh = null;
           }
         }
@@ -220,7 +225,15 @@ export default {
         This.isLuocDiChuyen = true;
       });
     },
-
+    async UpdateWinLose(num){
+      const response = await axios.post("hexachess/updatewinlose.php",{
+        id: sessionStorage.getItem('key'),
+        winorlose: num
+      })
+      if (response.data == "1") {
+        console.log(response.data);
+      }else console.log(response)      
+    },
     btnOpenPopupWin(){
       this.isPopupWin = true;
     },
@@ -311,9 +324,11 @@ export default {
             if (loaico[1] != mang[i].loai) {
               if (mang[i].id == "tuong") {
                 this.btnOpenPopupWin();
+                this.UpdateWinLose(1);
               } else {
                 if (mang[i].id == "tuong_do") {
                   this.btnOpenPopupWin();
+                  this.UpdateWinLose(1);
                 }
                 else {
                   this.hinh[i].hinh = null;
@@ -378,7 +393,15 @@ export default {
         sessionStorage.setItem(("Host"), data[0].host)
         sessionStorage.setItem(("Guest"), data[0].guest)
       })
-    },
+
+      this.socketInstance.on("socketServerSendLeaveRoom", function(data){
+        console.log("Nhận dữ liệu có người thoát phòng", data);
+        sessionStorage.setItem("LeaveRoom", true)
+        window.location.href="http://localhost:8080/room";
+      })
+
+      
+      },
 
     //Chức năng chat trong phòng
     ClickSendDataChatToRoom: function(){
@@ -420,6 +443,12 @@ export default {
         });
       })
     },
+
+    ClickSendOutRoom: function(){
+      const isLeave = true
+      this.socketInstance.emit("socketClientSendLeaveRoom", isLeave)
+    },
+
   }
 }
 </script>
