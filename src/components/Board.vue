@@ -79,6 +79,7 @@
 <script>
 //Import thư viện server
 import { io } from "socket.io-client";
+import axios from 'axios'
 import mang from '@/Test/test.js'
 import MaTran from '@/Test/MaTranBanCo.js'
 import TinhNuocDi from '@/Test/TinhNuocDi.js'
@@ -204,11 +205,11 @@ export default {
         if (Data.CoBiAn != -1) {
           if (mang[Data.CoBiAn].id == "tuong") {
             This.btnOpenPopupLose();
-            
+            This.UpdateWinLose(0);
           }else{
             if (mang[Data.CoBiAn].id == "tuong_do") {
               This.btnOpenPopupLose();
-              
+              This.UpdateWinLose(0);
             }else Hinh[Data.CoBiAn].hinh = null;
           }
         }
@@ -218,7 +219,15 @@ export default {
         This.isLuocDiChuyen = true;
       });
     },
-
+    async UpdateWinLose(num){
+      const response = await axios.post("hexachess/updatewinlose.php",{
+        id: sessionStorage.getItem('key'),
+        winorlose: num
+      })
+      if (response.data == "1") {
+        console.log(response.data);
+      }else console.log(response)      
+    },
     btnOpenPopupWin(){
       this.isPopupWin = true;
     },
@@ -309,9 +318,11 @@ export default {
             if (loaico[1] != mang[i].loai) {
               if (mang[i].id == "tuong") {
                 this.btnOpenPopupWin();
+                this.UpdateWinLose(1);
               } else {
                 if (mang[i].id == "tuong_do") {
                   this.btnOpenPopupWin();
+                  this.UpdateWinLose(1);
                 }
                 else {
                   this.hinh[i].hinh = null;
