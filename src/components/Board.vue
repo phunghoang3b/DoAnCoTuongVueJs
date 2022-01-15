@@ -55,11 +55,11 @@
                  </div>
                </div>
              </div>
-             <div class="button-role">
+             <!-- <div class="button-role">
                <button class="snip1582">Bỏ Cuộc</button>
                <button class="snip1582">Undo</button>
                <button class="snip1582">Redo</button>
-             </div>
+             </div> -->
              <div class="chat-game">
                <h3>Chat Vui Nào !</h3>
                <input type="text" style="display:inline-block" v-model="message">&nbsp;
@@ -68,7 +68,9 @@
                     {{data.chat}}
                     </div>
              </div>
-             <p style="color: yellow;font-size: 20px;">----======{(-_-)}======----</p>
+             <div class="draw-img">
+               <p style="color: yellow;font-size: 20px;">----======{(-_-)}======----</p>
+             </div>         
            </div>
          </div>
        </div>
@@ -442,6 +444,13 @@ export default {
     .container{
       height: 20%;
     }
+    .chat-game{
+      top: 10%;
+    }
+    .draw-img{
+      position: relative;
+      top: 12%;
+    }
   }
   @media (max-width: 800px) {
     .h-100{
@@ -480,7 +489,7 @@ export default {
   }
   .player{
     position: relative;
-    top: 6%;
+    top: 14%;
   }
   .player p{
     background-color: chocolate;
@@ -566,7 +575,7 @@ export default {
 }
 .chat-game{
   position: relative;
-  margin-top: 4%;
+  margin-top: 25%;
 }
 .chat-game h3{
   font-family: 'Monaco', cursive;

@@ -23,8 +23,7 @@
                         <li><a class="change" href="/">TRANG CHỦ</a></li>
                         <li><a class="change" href="/intro">GIỚI THIỆU</a></li>
                         <li><a class="change" href="/rule">CÁCH CHƠI</a></li>
-                        <li><a class="change" href="/chat">CHAT GAME</a></li>
-                        <li><a class="change" href="/profile">HỒ SƠ</a></li>
+                        <li><a class="change" v-if="ShowChat" href="/chat">TÁN GẨU</a></li>
                         <li><a class="change" href="/addfriend">KẾT BẠN</a></li>                                      
                     </ul>
                 </div>
@@ -166,12 +165,14 @@ export default {
         password: '',
         email: ''
       },
-      ShowLogout: false
+      ShowLogout: false,
+      ShowChat: false
     };
   },
   created() {
     if (sessionStorage.getItem("key") != null) {
       this.ShowLogout = true;
+      this.ShowChat = true;
     }
   },
   methods: {

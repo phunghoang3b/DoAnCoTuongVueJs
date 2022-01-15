@@ -73,7 +73,8 @@ export default {
     };
   },
   methods: {
-    async DangNhap() {
+    async DangNhap(e) {
+      e.preventDefault()
       const TaiKhoan = this.account.username;
       const MatKhau = this.account.password;
 
