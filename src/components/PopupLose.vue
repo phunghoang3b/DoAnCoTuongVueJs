@@ -18,7 +18,7 @@ export default {
     methods: {
         btnClosePopup(){
             //this.p = true;
-            this.$router.push('/room');
+            window.location.href = "http://localhost:8080/room"
         }
     }
 }
