@@ -38,6 +38,7 @@ export default {
     this.strUsername = sessionStorage.getItem("key"); // Tạo biến để chứa tên tài khoản
     console.log("Tài khoản hiện đang đăng nhập vào trang: "+ this.strUsername);
     // this.socketInstance.emit("socketClientSendUsername", this.strUsername);
+    this.ShowLeaveRoom();
   },
 
   methods: {
@@ -78,11 +79,19 @@ export default {
       sessionStorage.setItem("roomNameGuestJoin", roomName); //Lấy tên phòng khi người chơi 
       sessionStorage.setItem("GuestJoinRoom", sessionStorage.getItem("key"))
       window.location.href = "http://localhost:8080/board";
+      sessionStorage.setItem("FirstJoinRoom", true)
     },
 
     //Random
     GenerateNumber: function () {
       return Math.floor(Math.random()*(this.max-this.min+1)+this.min);
+    },
+
+    ShowLeaveRoom:function () {
+      if(sessionStorage.getItem("LeaveRoom")){
+        alert("Đối phương đã rời phòng");
+        sessionStorage.setItem("LeaveRoom", "")
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
    <main class="main" id="top">
      <div class="classLogout">
-       <a href="/room"><img src="https://i.imgur.com/bRHR6bO.png" alt=""></a>
+       <a href="/room" @click="ClickSendOutRoom"><img src="https://i.imgur.com/bRHR6bO.png" alt=""></a>
      </div>
      <section>
        <div class="container">
@@ -170,7 +170,8 @@ export default {
     }else if(DataGuestJoinRom.GuestIdInDb != null){
       this.socketInstance.emit("socketClientGuestSendDataWhenJoinRoom", DataGuestJoinRom);
     }
-  
+
+
     this.ChangeInfoPlayerAll();
 
     //Nhận dữ liệu chat từ trong phòng
@@ -191,6 +192,9 @@ export default {
     }
     console.log(this.isLuocDiChuyen);
     this.SocketOn();
+
+
+
   },
   methods: {
     SocketOn(){
@@ -376,7 +380,15 @@ export default {
         sessionStorage.setItem(("Host"), data[0].host)
         sessionStorage.setItem(("Guest"), data[0].guest)
       })
-    },
+
+      this.socketInstance.on("socketServerSendLeaveRoom", function(data){
+        console.log("Nhận dữ liệu có người thoát phòng", data);
+        sessionStorage.setItem("LeaveRoom", true)
+        window.location.href="http://localhost:8080/room";
+      })
+
+      
+      },
 
     //Chức năng chat trong phòng
     ClickSendDataChatToRoom: function(){
@@ -418,6 +430,12 @@ export default {
         });
       })
     },
+
+    ClickSendOutRoom: function(){
+      const isLeave = true
+      this.socketInstance.emit("socketClientSendLeaveRoom", isLeave)
+    },
+
   }
 }
 </script>
